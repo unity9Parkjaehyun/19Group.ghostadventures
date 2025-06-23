@@ -2,7 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoulGauge : MonoBehaviour
+public class SoulGauge : Singleton<SoulGauge>
 {
     [SerializeField] Image[] soulGauge; // 영혼게이지
     public int currentSoulGauge {get; private set;}

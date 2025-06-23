@@ -19,11 +19,13 @@ public class SoulEnergySystem : Singleton<SoulEnergySystem>
     {
         currentEnergy = Mathf.Max(currentEnergy - amount, 0);
         Debug.Log($"영혼 에너지 {amount} 소모, 현재: {currentEnergy}");
+        SoulGauge.Instance.SetSoulGauge(currentEnergy);
     }
 
     public void Restore(int amount)
     {
         currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
         Debug.Log($"영혼 에너지 {amount} 회복, 현재: {currentEnergy}");
+        SoulGauge.Instance.SetSoulGauge(currentEnergy);
     }
 }
