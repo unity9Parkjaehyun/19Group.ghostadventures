@@ -4,16 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    private void Awake()
-    {
-        if (Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+    public GameObject playerPrefab;
+    private GameObject currentPlayer;
 
-        DontDestroyOnLoad(gameObject);
+    public void SpawnPlayer()
+    {
+        if (currentPlayer == null)
+        {
+            currentPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            DontDestroyOnLoad(currentPlayer);
+        }
     }
+
+    public GameObject GetPlayer() => currentPlayer;
 
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;

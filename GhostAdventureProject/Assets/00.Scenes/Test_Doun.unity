@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 384989530}
   - component: {fileID: 384989531}
   m_Layer: 0
-  m_Name: Ghost_Sprite_Sheet_0
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
