@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class QTERotatingBar : MonoBehaviour // 수정 필요 =======================================================
+public class QTE : MonoBehaviour // 코드 정리 필요 (추후에 UI에셋 정해지면 할게요)=======================================================
 
 {
     public RectTransform needle;       // 회전하는 바늘
