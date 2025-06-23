@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
+    private IInteractionTarget currentTarget;
     
     private Animator animator;
 
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         HandleMovement();
+        HandleInteraction();
     }
 
     private void HandleMovement()
@@ -38,6 +40,12 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteraction()
     {
-        
+        if(Input.GetKeyDown(KeyCode.E) && currentTarget != null)
+            currentTarget.Interact();
+    }
+
+    public void SetInteractTarget(IInteractionTarget target) // 플레이어가 대상 가까이 갈때마다 트리거에서 호출 추천
+    {
+        currentTarget = target;
     }
 }
