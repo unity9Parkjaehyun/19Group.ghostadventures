@@ -48,4 +48,10 @@ public class PlayerController : MonoBehaviour
     {
         currentTarget = target;
     }
+
+    public void ClearInteractionTarget(IInteractionTarget target)
+    {
+        if (currentTarget == null)
+            currentTarget = null;
+    }
 }
