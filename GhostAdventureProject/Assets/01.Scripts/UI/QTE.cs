@@ -1,14 +1,17 @@
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class QTERotatingBar : MonoBehaviour // 수정 필요 =======================================================
 
 {
     public RectTransform needle;       // 회전하는 바늘
     public float rotateSpeed = 90f;   // 초당 회전 속도 (도)
-    // public float minSuccessAngle = 120f; // 성공 범위 시작 (랜덤값)
-    // public float maxSuccessAngle = 150f; // 성공 범위 끝 (랜덤값)
     public KeyCode inputKey = KeyCode.Space;
+
+    public Image successArc;
+    public float minAngle = 120f;
+    public float maxAngle = 150f;
 
     private float currentAngle = 0f; // ***** 바늘 움직임이 없을 때 0도, 중앙 -90도, 최대로 갔을 때 -180도. *****
     // [SerializeField] private bool isQTEActive = false;
@@ -18,9 +21,9 @@ public class QTERotatingBar : MonoBehaviour // 수정 필요 ===================
     {
     }
 
-    public void StartQTE(float minAngle, float maxAngle)
+    public void StartQTE()
     {
-        // gameObject.SetActive(true); // QTE UI 화면에 뜸
+        gameObject.SetActive(true); // QTE UI 화면에 뜸
         // currentAngle = 0f;
         needle.localEulerAngles = Vector3.zero; // 바늘은 0도부터 시작
 
@@ -32,6 +35,7 @@ public class QTERotatingBar : MonoBehaviour // 수정 필요 ===================
         {
             // isQTEActive = false;
             Debug.Log("❌ QTE 실패");
+            gameObject.SetActive(false);
             return;
         }
 
@@ -49,13 +53,25 @@ public class QTERotatingBar : MonoBehaviour // 수정 필요 ===================
             {
                 Debug.Log("❌ QTE 실패 (타이밍 안 맞음)");
             }
+            gameObject.SetActive(false);
 
         }
 
     }
 
+
+    void ShowSuccessArc()
+    {
+        float fill = (maxAngle - minAngle) / 360f;
+        successArc.fillAmount = fill;
+
+        // minAngle만큼 회전해서 시작 지점 맞추기
+        successArc.rectTransform.localEulerAngles = new Vector3(0, 0, -minAngle);
+    }
+
     void Update()
     {
-        StartQTE(90, 110);
+        StartQTE();
+        ShowSuccessArc();
     }
 }
