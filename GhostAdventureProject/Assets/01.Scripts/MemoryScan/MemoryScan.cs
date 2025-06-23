@@ -51,7 +51,14 @@ public class MemoryScan : MonoBehaviour
     {
         if (!isNearMemory) return; // 메모리 오브젝트 근처가 아니면 스캔 금지
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && SoulEnergySystem.Instance.currentEnergy == 0)
+        {
+            Debug.Log("영혼 에너지가 부족하여 스캔을 시작할 수 없습니다.");
+
+
+        }
+
+            if (Input.GetKeyDown(KeyCode.X)&& SoulEnergySystem.Instance.currentEnergy>0)
         {
             isScanning = true;
             scanTime = 0f;
@@ -61,6 +68,8 @@ public class MemoryScan : MonoBehaviour
                 scanCircleUI.fillAmount = 0f;
             }
             Debug.Log("스캔 시작");
+
+            SoulEnergySystem.Instance.Consume(1); // 스캔 시작 시 영혼 에너지 1 소모
         }
 
         if (isScanning && Input.GetKey(KeyCode.X))
