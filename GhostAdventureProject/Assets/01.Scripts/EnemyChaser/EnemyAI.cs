@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour
     public float moveSpeed = 2f; // 이동 속도
 
     private Vector3 startPos; // 시작 위치
-    private PlayerController playerController; // PlayerController 참조 추가
+    private PlayerHide playerHide; // PlayerHide 참조 추가
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
         // PlayerController 컴포넌트 가져오기
         if (Player != null)
         {
-            playerController = Player.GetComponent<PlayerController>();
+            playerHide = Player.GetComponent<PlayerHide>();
         }
     }
 
@@ -55,8 +55,8 @@ public class EnemyAI : MonoBehaviour
     // 플레이어가 숨어있는지 확인하는 메서드
     private bool IsPlayerHiding()
     {
-        if (playerController == null) return false;
-        return playerController.IsHiding;
+        if (playerHide == null) return false;
+        return playerHide.IsHiding;
     }
 
 
