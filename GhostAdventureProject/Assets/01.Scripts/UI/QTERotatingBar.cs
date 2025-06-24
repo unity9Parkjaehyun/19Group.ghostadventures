@@ -16,7 +16,6 @@ public class QTERotatingBar : MonoBehaviour
 
     public void StartQTE()
     {
-        
         gameObject.SetActive(true); // QTE UI 화면에 뜸
         needle.localEulerAngles = Vector3.zero; // 바늘은 0도부터 시작
 
