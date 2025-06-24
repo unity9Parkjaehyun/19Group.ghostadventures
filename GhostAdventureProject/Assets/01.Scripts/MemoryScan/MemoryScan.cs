@@ -18,8 +18,8 @@ public class MemoryScan : MonoBehaviour
     private float scanTime = 0f;
     private bool isScanning = false;
     private bool isNearMemory = false;
-    private GameObject currentScanObject; // 현재 스캔 대상 오브젝트
-    private MemoryFragment currentMemoryFragment;
+    [SerializeField] private GameObject currentScanObject; // 현재 스캔 대상 오브젝트
+    [SerializeField] private MemoryFragment currentMemoryFragment;
 
     private Camera mainCamera;
 
@@ -82,7 +82,7 @@ public class MemoryScan : MonoBehaviour
             scanCircleUI.fillAmount = 0f;
         }
 
-        Time.timeScale = 0.2f; // 슬로우 모션 시작
+        Time.timeScale = 0.3f; // 슬로우 모션 시작
         SoulEnergySystem.Instance.Consume(1); // 에너지 소모
         Debug.Log("스캔 시작");
     }
