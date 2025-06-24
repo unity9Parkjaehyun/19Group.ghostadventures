@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class QTE : MonoBehaviour
+public class QTERotatingBar : MonoBehaviour
 
 {
     public RectTransform needle;       // 바늘
