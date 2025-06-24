@@ -132,5 +132,6 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: be5f9e81cbcd1a3489a10c9822ce90f1, type: 2}
   isScanned: 0
   fragmentDropPrefab: {fileID: 3038222122984259640, guid: 44262f016cdd94745a5b9f8c993c56aa, type: 3}
-  dropDirection: {x: 0, y: 1}
-  dropForce: 3
+  dropOffset: {x: 0, y: 0, z: 0}
+  bounceHeight: 0.3
+  bounceDuration: 0.5

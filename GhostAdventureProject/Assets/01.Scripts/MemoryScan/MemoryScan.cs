@@ -60,7 +60,7 @@ public class MemoryScan : MonoBehaviour
     private void TryStartScan()
     {
         // 영혼 에너지가 있는지 확인
-        if (SoulEnergySystem.Instance.currentEnergy <= 0)
+        if (SoulEnergySystem.Instance.currentEnergy <= 0 )
         {
             Debug.Log("영혼 에너지가 부족하여 스캔을 시작할 수 없습니다.");
             // 여기에 부족 알림 UI나 사운드를 재생하는 로직
@@ -72,6 +72,9 @@ public class MemoryScan : MonoBehaviour
 
     private void StartScan()
     {
+        if (!currentMemoryFragment.isScanned)
+        {
+
         isScanning = true;
         scanTime = 0f;
 
@@ -85,6 +88,9 @@ public class MemoryScan : MonoBehaviour
         Time.timeScale = 0.3f; // 슬로우 모션 시작
         SoulEnergySystem.Instance.Consume(1); // 에너지 소모
         Debug.Log("스캔 시작");
+
+
+        }
     }
 
     private void UpdateScan()
@@ -130,9 +136,13 @@ public class MemoryScan : MonoBehaviour
             Debug.Log("이미 스캔된 기억 조각이거나, MemoryFragment 컴포넌트가 없습니다.");
         }
 
-        // 스캔 대상 초기화
-        currentScanObject = null;
-        currentMemoryFragment = null;
+
+       // currentScanObject.GetComponentInChildren<SpriteRenderer>().color = new Color(45/255f,45/255f,45/255f); // 스캔 완료 후 색상 변경
+        //// 스캔 대상 초기화
+        //currentScanObject = null;
+        //currentMemoryFragment = null;
+
+
     }
 
     private void CancelScan(string reason)
