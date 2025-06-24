@@ -12,8 +12,9 @@ public class MemoryFragment : MonoBehaviour
     [SerializeField] private GameObject fragmentDropPrefab;
 
     [Header("드랍 시스템")]
-    [SerializeField] private Vector2 dropDirection = Vector2.up;
-    [SerializeField] private float dropForce = 3f;
+    [SerializeField] private Vector2 dropDirection = new Vector2(-1, -1); // 사선 아래로
+    [SerializeField] private float dropForce = 2f;
+    [SerializeField] private Vector3 dropOffset = new Vector3(0f, 0f, 0f); // 필요 시 조정
 
     public void IsScanned()
     {
@@ -26,7 +27,7 @@ public class MemoryFragment : MonoBehaviour
         // 조각 생성
         if (fragmentDropPrefab != null && dropSprite != null)
         {
-            GameObject drop = Instantiate(fragmentDropPrefab, transform.position, Quaternion.identity);
+            GameObject drop = Instantiate(fragmentDropPrefab, transform.position + dropOffset, Quaternion.identity);
 
             // 스프라이트 적용
             if (drop.TryGetComponent(out SpriteRenderer sr))
