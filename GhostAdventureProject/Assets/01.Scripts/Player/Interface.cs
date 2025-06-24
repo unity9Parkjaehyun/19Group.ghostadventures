@@ -9,6 +9,6 @@ public interface IInteractionTarget
 
 public interface IPossessable
 {
-    bool Possess();
+    void Possess();
     void Unpossess();
 }
