@@ -1,0 +1,25 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AnimalPossessable : BasePossessable
+{
+    [SerializeField] private float moveSpeed = 3f;
+
+    protected virtual void HandleMovement()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        Vector3 move = new Vector3(h, v, 0);
+        transform.position += move * moveSpeed * Time.deltaTime;
+    }
+
+    void FixedUpdate()
+    {
+        if (PossessionStateManager.Instance.currentState != PossessionStateManager.State.Possessing)
+            return;
+
+        HandleMovement();
+    }
+}

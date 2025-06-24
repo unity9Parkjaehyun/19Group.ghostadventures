@@ -123,7 +123,7 @@ public class MemoryScan : MonoBehaviour
         {
             currentMemoryFragment.IsScanned();
             // 스캔 완료 후 메모리 오브젝트 파괴
-            Destroy(currentScanObject);
+            //Destroy(currentScanObject);
         }
         else
         {

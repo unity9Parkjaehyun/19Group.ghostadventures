@@ -2,19 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatPossessable : MonoBehaviour, IInteractionTarget, IPossessable
+public class RatPossessable : AnimalPossessable
 {
-    public void Interact() => PossessionSystem.Instance.TryPossess(this);
-
-    public bool Possess()
+    public void OnQTESuccess()
     {
-        Debug.Log("Possessing");
-        QTESystem.Instance.StartQTE(this);
-        return true;
-    }
-
-    public void Unpossess()
-    {
-        Debug.Log("Unpossessing");
+        PossessionStateManager.Instance.Possess(GameManager.Instance.GetPlayer(), this.gameObject);
     }
 }

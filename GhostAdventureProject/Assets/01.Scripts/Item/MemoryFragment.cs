@@ -11,17 +11,16 @@ public class MemoryFragment : MonoBehaviour
     [Header("드랍 조각 프리팹")]
     [SerializeField] private GameObject fragmentDropPrefab;
 
-    [Header("드랍 시스템")]
-    [SerializeField] private Vector2 dropDirection = new Vector2(-1, -1); // 사선 아래로
-    [SerializeField] private float dropForce = 2f;
-    [SerializeField] private Vector3 dropOffset = new Vector3(0f, 0f, 0f); // 필요 시 조정
+    [Header("드랍 연출")]
+    [SerializeField] private Vector3 dropOffset = new Vector3(0f, 0f, 0f); // 생성 위치 조정
+    [SerializeField] private float bounceHeight = 0.3f;
+    [SerializeField] private float bounceDuration = 0.5f;
 
     public void IsScanned()
     {
         if (isScanned) return;
         isScanned = true;
 
-        //ShowMemoryImage(data.memoryImage);
         Sprite dropSprite = GetFragmentSpriteByType(data.type);
 
         // 조각 생성
@@ -36,14 +35,41 @@ public class MemoryFragment : MonoBehaviour
             }
 
             // 튕겨나오는 연출
-            if (drop.TryGetComponent(out Rigidbody2D rb))
-            {
-                rb.AddForce(dropDirection.normalized * dropForce, ForceMode2D.Impulse);
-            }
+            StartCoroutine(DropAndPlayMemory(drop));
+        }
+    }
+
+    private IEnumerator DropAndPlayMemory(GameObject drop)
+    {
+        yield return StartCoroutine(DropBounceAnimation(drop));
+        //yield return StartCoroutine(기억연출);
+    }
+
+    private IEnumerator DropBounceAnimation(GameObject drop)
+    {
+        Vector3 startPos = drop.transform.position;
+        Vector3 peakPos = startPos + new Vector3(0, bounceHeight, 0);
+        Vector3 endPos = startPos;
+
+        float half = bounceDuration / 2f;
+        float t = 0f;
+
+        while (t < half)
+        {
+            drop.transform.position = Vector3.Lerp(startPos, peakPos, t / half);
+            t += Time.deltaTime;
+            yield return null;
         }
 
-        //'기억을 재생합니다' 같은 UI
-        //UIManager.Instance.ShowMemoryPrompt(this);
+        t = 0f;
+        while (t < half)
+        {
+            drop.transform.position = Vector3.Lerp(peakPos, endPos, t / half);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        drop.transform.position = endPos;
     }
 
     private Sprite GetFragmentSpriteByType(MemoryData.MemoryType type)
