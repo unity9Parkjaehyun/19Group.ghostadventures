@@ -137,7 +137,7 @@ public class MemoryScan : MonoBehaviour
         }
 
 
-       // currentScanObject.GetComponentInChildren<SpriteRenderer>().color = new Color(45/255f,45/255f,45/255f); // 스캔 완료 후 색상 변경
+        currentScanObject.GetComponentInChildren<SpriteRenderer>().color = new Color(155/255f,155/255f,155/255f); // 스캔 완료 후 색상 변경
         //// 스캔 대상 초기화
         //currentScanObject = null;
         //currentMemoryFragment = null;
