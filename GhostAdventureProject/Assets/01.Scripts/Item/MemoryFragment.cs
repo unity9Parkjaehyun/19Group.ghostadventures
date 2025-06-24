@@ -1,12 +1,14 @@
 ﻿using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MemoryFragment : MonoBehaviour
 {
-    public MemoryData data;
+    private MemoryData data;
     public bool isScanned = false;
+    public GameObject interactionInfo;
 
     [Header("드랍 조각 프리팹")]
     [SerializeField] private GameObject fragmentDropPrefab;
@@ -15,6 +17,22 @@ public class MemoryFragment : MonoBehaviour
     [SerializeField] private Vector3 dropOffset = new Vector3(0f, 0f, 0f); // 생성 위치 조정
     [SerializeField] private float bounceHeight = 0.3f;
     [SerializeField] private float bounceDuration = 0.5f;
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !isScanned)
+        {
+            interactionInfo.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactionInfo.SetActive(false);
+        }
+    }
 
     public void IsScanned()
     {
