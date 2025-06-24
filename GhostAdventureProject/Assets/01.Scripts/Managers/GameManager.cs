@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject playerPrefab;
     private GameObject currentPlayer;
+    // 레이지 이니셜라이즈
 
     public void SpawnPlayer()
     {
@@ -20,7 +21,7 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public GameObject GetPlayer() => currentPlayer;
+    public GameObject Player => currentPlayer;
 
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
