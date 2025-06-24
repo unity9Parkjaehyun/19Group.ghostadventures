@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class Prompt : MonoBehaviour
 {
     [SerializeField] private GameObject dialogPanel;

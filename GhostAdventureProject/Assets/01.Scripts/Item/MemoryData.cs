@@ -8,10 +8,13 @@ public class MemoryData : ScriptableObject
     public string memoryID;
     public MemoryType type;
 
-    // 스캔 전 외형
-    public Sprite unRevealedSprite;
-    // 스캔 후 외형
-    public Sprite revealedSprite;
+    // 스캔오브젝트 스프라이트
+    public Sprite MemoryObjectSprite;
+
+    // 스캔 후 드랍하는 조각 스프라이트
+    public Sprite PositiveFragmentSprite;
+    public Sprite NegativeFragmentSprite;
+    public Sprite FakeFragmentSprite;
 
     // 갖고 있는 기억은 나중에
     //public Sprite memoryImage;       
