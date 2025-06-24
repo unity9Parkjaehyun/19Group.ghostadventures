@@ -268,6 +268,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.56}
   m_EdgeRadius: 0
+--- !u!114 &80574949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80574942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7984671ccb1c543129126d0da47a1465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &155518064
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +441,7 @@ GameObject:
   - component: {fileID: 458702530}
   - component: {fileID: 458702529}
   - component: {fileID: 458702528}
+  - component: {fileID: 458702531}
   m_Layer: 5
   m_Name: Prompt
   m_TagString: Untagged
@@ -494,6 +507,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -183}
   m_SizeDelta: {x: 1300, y: 200}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &458702531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458702527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ffb5e38d00e8455b93cc910aa3d35f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &715547630
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,8 +1206,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 14534f88127334789b52e6aec9af0937, type: 2}
+  m_sharedMaterial: {fileID: 4804673219077872049, guid: 14534f88127334789b52e6aec9af0937, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1688,7 +1713,7 @@ MonoBehaviour:
   needle: {fileID: 1083644985}
   rotateSpeed: 180
   inputKey: 32
-  successArc: {fileID: 715547632}
+  successZone: {fileID: 0}
   minAngle: 120
   maxAngle: 150
 --- !u!1 &1608680746
@@ -1903,6 +1928,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1224845482822104352, guid: 2e8d55b85214bff4db7ffc8d81428fbc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 80574943}
+    - targetCorrespondingSourceObject: {fileID: 1224845482822104352, guid: 2e8d55b85214bff4db7ffc8d81428fbc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 80574949}
   m_SourcePrefab: {fileID: 100100000, guid: 2e8d55b85214bff4db7ffc8d81428fbc, type: 3}
 --- !u!1 &2019705115
 GameObject:

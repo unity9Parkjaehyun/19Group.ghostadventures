@@ -3,60 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class Prompt : MonoBehaviour
+
+public class Prompt : Singleton<Prompt>
 {
-    [SerializeField] private GameObject dialogPanel;
-    [SerializeField] private TMP_Text dialogText;
-    [SerializeField] private Button nextButton;
+    private GameObject PromptPanel; // 프롬프트 이미지
+    private TMP_Text PromptText; // 프롬프트 텍스트
 
-    private Queue<string> dialogQueue = new Queue<string>();
+    private Queue<string> PromptQueue = new Queue<string>();
     private System.Action onDialogComplete;
+    private bool isActive = false;
 
-    private void Awake()
+    private void Start()
     {
-        dialogPanel.SetActive(false);
-        nextButton.onClick.AddListener(ShowNextLine);
+        PromptPanel = gameObject;
+        PromptText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        
+        PromptPanel.SetActive(false);
     }
 
-    public void ShowDialog(string[] lines, System.Action onComplete = null)
+    public void ShowPrompt(string[] lines) //, System.Action onComplete = null
     {
-        dialogQueue.Clear();
+        PromptQueue.Clear();
         foreach (var line in lines)
-            dialogQueue.Enqueue(line);
+            PromptQueue.Enqueue(line);
 
-        onDialogComplete = onComplete;
-        dialogPanel.SetActive(true);
+        // onDialogComplete = onComplete;
+        PromptPanel.SetActive(true);
+        isActive = true;
         ShowNextLine();
     }
 
     private void ShowNextLine()
     {
-        if (dialogQueue.Count > 0)
+        if (PromptQueue.Count > 0)
         {
-            string nextLine = dialogQueue.Dequeue();
-            dialogText.text = nextLine;
+            string nextLine = PromptQueue.Dequeue();
+            PromptText.text = nextLine;
         }
         else
         {
-            dialogPanel.SetActive(false);
-            onDialogComplete?.Invoke();
+            PromptPanel.SetActive(false);
+            isActive = false;
+            // onDialogComplete?.Invoke();
         }
+    }
+
+    private void Update()
+    {
+        if(!isActive) return;
+        
+        if(Input.GetMouseButtonDown(0))
+            ShowNextLine();
     }
 }
 
 
 
-
-// // 사용 예시 void TriggerEvent()
-// {
-//     string[] lines = new string[]
-//     {
-//         "여기 정말 어두워...",
-//         "조심해서 가야겠어."
-//     };
-
-//     FindObjectOfType<DialogUI>().ShowDialog(lines, () =>
-//     {
-//         Debug.Log("✅ 대화 끝! 퀘스트 시작.");
-//     });
-// }
