@@ -6,7 +6,7 @@ public class RatPossessable : AnimalPossessable
 {
     public void OnQTESuccess()
     {
-        isPossessed = true;
+        // isPossessed = true;
         PossessionStateManager.Instance.Possess(GameManager.Instance.Player, this.gameObject);
     }
 }
