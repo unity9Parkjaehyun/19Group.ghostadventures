@@ -1,6 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Prompt : MonoBehaviour
 {
@@ -56,6 +58,6 @@ public class Prompt : MonoBehaviour
 
 //     FindObjectOfType<DialogUI>().ShowDialog(lines, () =>
 //     {
-//         Debug.Log("✅ 대화 끝! 퀘스트 시작.");
+//         Debug.Log(" 대화 끝! 퀘스트 시작.");
 //     });
 // }
