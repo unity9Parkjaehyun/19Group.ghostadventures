@@ -1,7 +1,5 @@
-﻿using System.Buffers;
+﻿using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MemoryFragment : MonoBehaviour
@@ -13,25 +11,29 @@ public class MemoryFragment : MonoBehaviour
     [Header("드랍 조각 프리팹")]
     [SerializeField] private GameObject fragmentDropPrefab;
 
-    [Header("드랍 연출")]
-    [SerializeField] private Vector3 dropOffset = new Vector3(0f, 0f, 0f); // 생성 위치 조정
+    [Header("드랍 연출 설정")]
+    [SerializeField] private Vector3 dropOffset = Vector3.zero;
     [SerializeField] private float bounceHeight = 0.3f;
     [SerializeField] private float bounceDuration = 0.5f;
 
-    void OnTriggerEnter2D(Collider2D other)
+    [Header("회전 연출 설정")]
+    [SerializeField] private float rotateTime = 1.2f;
+    [SerializeField] private float ellipseRadiusX = 0.5f;
+    [SerializeField] private float ellipseRadiusZ = 1.0f;
+
+    [Header("흡수 연출 설정")]
+    [SerializeField] private float absorbTime = 0.6f;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player") && !isScanned)
-        {
             interactionInfo.SetActive(true);
-        }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-        {
             interactionInfo.SetActive(false);
-        }
     }
 
     public void IsScanned()
@@ -40,135 +42,105 @@ public class MemoryFragment : MonoBehaviour
         isScanned = true;
 
         Sprite dropSprite = GetFragmentSpriteByType(data.type);
+        if (fragmentDropPrefab == null || dropSprite == null) return;
 
-        // 조각 생성
-        if (fragmentDropPrefab != null && dropSprite != null)
-        {
-            GameObject drop = Instantiate(fragmentDropPrefab, transform.position + dropOffset, Quaternion.identity);
+        GameObject drop = Instantiate(fragmentDropPrefab, transform.position + dropOffset, Quaternion.identity);
 
-            // 스프라이트 적용
-            if (drop.TryGetComponent(out SpriteRenderer sr))
-            {
-                sr.sprite = dropSprite;
-            }
+        if (drop.TryGetComponent(out SpriteRenderer sr))
+            sr.sprite = dropSprite;
 
-            // 튕겨나오는 연출
-            StartCoroutine(DropAndPlayMemory(drop));
-        }
+        StartCoroutine(PlayDropSequence(drop));
     }
 
-    private IEnumerator DropAndPlayMemory(GameObject drop)
+    private IEnumerator PlayDropSequence(GameObject drop)
     {
-        yield return StartCoroutine(DropBounceAnimation(drop));
-        yield return StartCoroutine(RotateAroundMemory(drop));
-        yield return StartCoroutine(MoveToPlayerAndAbsorb(drop));
+        if (drop == null) yield break;
 
-        Destroy(drop); // 조각 제거
-    }
-
-    private IEnumerator DropBounceAnimation(GameObject drop)
-    {
-        Vector3 startPos = drop.transform.position;
-        Vector3 peakPos = startPos + new Vector3(0, bounceHeight, 0);
-        Vector3 endPos = startPos;
-
-        float half = bounceDuration / 2f;
-        float t = 0f;
-
-        while (t < half)
-        {
-            drop.transform.position = Vector3.Lerp(startPos, peakPos, t / half);
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        t = 0f;
-        while (t < half)
-        {
-            drop.transform.position = Vector3.Lerp(peakPos, endPos, t / half);
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        drop.transform.position = endPos;
-    }
-
-    private IEnumerator RotateAroundMemory(GameObject drop)
-    {
-        float duration = 1f;
-        float radius = 0.5f;
-        float angle = 0f;
-        float speed = 360f / duration; // 1초에 한 바퀴
-
-        Vector3 center = transform.position;
-        float timer = 0f;
-
-        while (timer < duration)
-        {
-            angle += speed * Time.deltaTime;
-            float rad = angle * Mathf.Deg2Rad;
-            drop.transform.position = center + new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * radius;
-
-            timer += Time.deltaTime;
-            yield return null;
-        }
-    }
-    private IEnumerator MoveToPlayerAndAbsorb(GameObject drop)
-    {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null) yield break;
 
         Vector3 startPos = drop.transform.position;
-        Vector3 targetPos = player.transform.position;
-        Vector3 startScale = drop.transform.localScale;
-        Vector3 endScale = Vector3.zero;
 
-        float duration = 0.5f;
-        float t = 0f;
+        // === 1. 튕기기 애니메이션 ===
+        yield return DOTween.Sequence()
+            .Append(drop.transform.DOMoveY(startPos.y + bounceHeight, bounceDuration / 2f).SetEase(Ease.OutQuad))
+            .Append(drop.transform.DOMoveY(startPos.y, bounceDuration / 2f).SetEase(Ease.InQuad))
+            .Join(drop.transform.DOPunchScale(Vector3.one * 0.1f, bounceDuration, 5, 1))
+            .WaitForCompletion();
 
-        while (t < duration)
+        // === 2. 타원 궤도로 회전 (시작 위치 부드럽게 맞추고 반시계 방향) ===
+        Vector3 center = startPos;
+        Vector3 local = drop.transform.position - center;
+
+        // 시작 각도 계산
+        float startAngleRad = Mathf.Atan2(local.z / ellipseRadiusZ, local.x / ellipseRadiusX);
+        float startAngleDeg = startAngleRad * Mathf.Rad2Deg;
+        float currentAngle = startAngleDeg;
+
+        // 시작 위치 계산 (끊김 방지용)
+        float rad = startAngleDeg * Mathf.Deg2Rad;
+        Vector3 initialOffset = new Vector3(Mathf.Cos(rad) * ellipseRadiusX, 0f, Mathf.Sin(rad) * ellipseRadiusZ);
+        Vector3 initialPos = center + new Vector3(initialOffset.x, 0f, 0f);
+
+        // 🔧 현재 위치에서 회전 궤도 시작점으로 부드럽게 이동 (끊김 방지)
+        yield return drop.transform.DOMove(initialPos, 0.1f).SetEase(Ease.InOutSine).WaitForCompletion();
+
+        // 반시계 방향 회전: angle 감소
+        Tween rotate = DOTween.To(() => currentAngle, x =>
         {
-            drop.transform.position = Vector3.Lerp(startPos, targetPos, t / duration);
-            drop.transform.localScale = Vector3.Lerp(startScale, endScale, t / duration);
-            t += Time.deltaTime;
-            yield return null;
-        }
+            currentAngle = x;
+            float r = currentAngle * Mathf.Deg2Rad;
+            Vector3 offset = new Vector3(Mathf.Cos(r) * ellipseRadiusX, 0f, Mathf.Sin(r) * ellipseRadiusZ);
 
-        drop.transform.position = targetPos;
-        drop.transform.localScale = endScale;
+            drop.transform.position = center + new Vector3(offset.x, 0f, 0f);
+
+            if (drop.TryGetComponent(out SpriteRenderer sr))
+                sr.sortingOrder = (offset.z > 0) ? 1 : -1;
+
+        }, startAngleDeg - 360f, rotateTime).SetEase(Ease.InOutSine);
+
+        yield return rotate.WaitForCompletion();
+
+        // === 3. 플레이어에게 흡수 ===
+        Vector3 target = player.transform.position;
+        var absorb = DOTween.Sequence()
+            .Append(drop.transform.DOMove(target, absorbTime).SetEase(Ease.InCubic))
+            .Join(drop.transform.DOScale(Vector3.zero, absorbTime).SetEase(Ease.InBack));
+
+        if (drop.TryGetComponent(out SpriteRenderer finalSR))
+            absorb.Join(finalSR.DOFade(0f, absorbTime));
+
+        yield return absorb.WaitForCompletion();
+
+        Destroy(drop);
     }
 
     private Sprite GetFragmentSpriteByType(MemoryData.MemoryType type)
     {
-        switch (type)
+        return type switch
         {
-            case MemoryData.MemoryType.Positive:
-                return data.PositiveFragmentSprite;
-            case MemoryData.MemoryType.Negative:
-                return data.NegativeFragmentSprite;
-            case MemoryData.MemoryType.Fake:
-                return data.FakeFragmentSprite;
-            default:
-                return null;
-        }
+            MemoryData.MemoryType.Positive => data.PositiveFragmentSprite,
+            MemoryData.MemoryType.Negative => data.NegativeFragmentSprite,
+            MemoryData.MemoryType.Fake => data.FakeFragmentSprite,
+            _ => null
+        };
     }
 
-    private void ApplyMemoryEffect()
-    {
-        switch (data.type)
-        {
-            case MemoryData.MemoryType.Positive:
-                //RecoverSoul(data.soulRecovery); // 2만큼 회복
-                //영혼에너지 회복 메시지
-                break;
+    //private void ApplyMemoryEffect()
+    //{
+    //    switch (data.type)
+    //    {
+    //        case MemoryData.MemoryType.Positive:
+    //            //퍼즐 조건 해금
+    //            break;
 
-            case MemoryData.MemoryType.Negative:
-                //ApplyDebuff(); // 디버프는 추후에 추적, 사신 시야 증가 등
-                break;
+    //        case MemoryData.MemoryType.Negative:
+    //            //ApplyDebuff(); // 적 추적 활성화 등
+    //            break;
 
-            case MemoryData.MemoryType.Fake:
-                FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
-                break;
-        }
-    }
+    //        case MemoryData.MemoryType.Fake:
+    //            FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
+    //            break;
+    //    }
+    //}
 }
