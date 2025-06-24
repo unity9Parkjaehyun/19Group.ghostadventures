@@ -5,7 +5,7 @@ using UnityEngine;
 public class MemoryFragment : MonoBehaviour
 {
     public MemoryData data;
-    private bool isScanned = false;
+    public bool isScanned = false;
 
     private SpriteRenderer spriteRenderer;
 

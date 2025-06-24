@@ -67,6 +67,7 @@ public class MemoryScan : MonoBehaviour
                 scanCircleUI.gameObject.SetActive(true);
                 scanCircleUI.fillAmount = 0f;
             }
+            Time.timeScale = 0f; // 스캔 중 시간 정지
             Debug.Log("스캔 시작");
 
             SoulEnergySystem.Instance.Consume(1); // 스캔 시작 시 영혼 에너지 1 소모
@@ -74,7 +75,8 @@ public class MemoryScan : MonoBehaviour
 
         if (isScanning && Input.GetKey(KeyCode.X))
         {
-            scanTime += Time.deltaTime;
+            Time.timeScale = 1f; // 스캔 완료 후 시간 재개
+            scanTime += Time.unscaledDeltaTime; // Time.unscaledDeltaTime 사용하여 시간 흐름을 유지
             float scanProgress = Mathf.Clamp01(scanTime / scan_duration);
             if (scanCircleUI != null)
             {
@@ -87,9 +89,19 @@ public class MemoryScan : MonoBehaviour
                 
                 isScanning = false;
                 Debug.Log("스캔 -완-");
-
                 memoryFragment = scanobj.GetComponent<MemoryFragment>();
+
+                if(memoryFragment.isScanned != true)
+                {
+
                 memoryFragment.IsScanned();
+
+                }
+                else
+                {
+
+                    Debug.Log("이미 스캔된 기억조각입니다.");
+                }
 
                 if (scanCircleUI != null)
                 {
@@ -135,7 +147,7 @@ public class MemoryScan : MonoBehaviour
         {
             isNearMemory = false;
             scanobj = null;
-
+            Time.timeScale = 1f; // 범위 이탈 시 시간 재개
             if (isScanning)
             {
                 isScanning = false;
