@@ -1,15 +1,21 @@
-﻿using Unity.VisualScripting;
+﻿using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     [Header("Managers")]
-    [SerializeField] private GameObject fakeEndingManager;
-    [SerializeField] private GameObject uiManager;
+    // [SerializeField] private GameObject fakeEndingManager;
+    // [SerializeField] private GameObject uiManager;
 
     public GameObject playerPrefab;
     private GameObject currentPlayer;
+
+    private void Start()
+    {
+        SpawnPlayer();
+    }
 
     public void SpawnPlayer()
     {
@@ -28,7 +34,7 @@ public class GameManager : Singleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"씬 로드됨: {scene.name}");
-        EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
+        // EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
         //EnsureManagerExists<UIManager>(uiManager);
 
         // 다른 매니저들도 같은 방식으로

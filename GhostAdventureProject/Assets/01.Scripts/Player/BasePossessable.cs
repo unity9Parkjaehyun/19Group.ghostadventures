@@ -8,6 +8,7 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
     protected bool isPossessed = false;
     public virtual void Interact()
     {
+        if (PossessionStateManager.Instance.IsPossessing()) return; // 빙의 중일 때 상호작용 차단
         PossessionSystem.Instance.TryPossess(this);
     }
 
@@ -22,6 +23,11 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
         Debug.Log("빙의 해제");
         isPossessed = false;
         PossessionStateManager.Instance.UnPossess();
+    }
+    
+    public void SetPossessed(bool value)
+    {
+        isPossessed = value;
     }
 
     void Update()
