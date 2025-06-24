@@ -8,11 +8,17 @@ public class MemoryData : ScriptableObject
     public string memoryID;
     public MemoryType type;
 
-    public Sprite disguisedSprite;   // 스캔 전 외형
-    public Sprite revealedSprite;    // 스캔 후 외형
-    public Sprite memoryImage;       // 연출용 이미지
+    // 스캔 전 외형
+    public Sprite unRevealedSprite;
+    // 스캔 후 외형
+    public Sprite revealedSprite;
+
+    // 갖고 있는 기억은 나중에
+    //public Sprite memoryImage;       
     public string memoryTitle;
 
     [TextArea(3, 10)]
     public string memoryDescription;
+
+    public int soulRecovery = 0;
 }
