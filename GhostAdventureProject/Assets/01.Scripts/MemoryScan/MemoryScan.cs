@@ -11,6 +11,7 @@ public class MemoryScan : MonoBehaviour
     private bool isScanning = false;
     private bool isNearMemory = false; // Memory 오브젝트 근처인지 확인
 
+    private MemoryFragment memoryFragment;
 
 
 
@@ -24,7 +25,6 @@ public class MemoryScan : MonoBehaviour
 
     void Start()
     {
-
         mainCamera = Camera.main;
 
         if (scanCircleUI != null)
@@ -87,6 +87,10 @@ public class MemoryScan : MonoBehaviour
                 
                 isScanning = false;
                 Debug.Log("스캔 -완-");
+
+                memoryFragment = scanobj.GetComponent<MemoryFragment>();
+                memoryFragment.IsScanned();
+
                 if (scanCircleUI != null)
                 {
                     scanCircleUI.gameObject.SetActive(false);
