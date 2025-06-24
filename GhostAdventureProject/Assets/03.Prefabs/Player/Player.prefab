@@ -136,9 +136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scan_duration: 4
+  scanPanel: {fileID: 0}
   scanCircleUI: {fileID: 0}
   playerTransform: {fileID: 574512815190063881}
-  scanobj: {fileID: 0}
 --- !u!50 &5344915649848432884
 Rigidbody2D:
   serializedVersion: 4
@@ -147,7 +147,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3339839161576889418}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
