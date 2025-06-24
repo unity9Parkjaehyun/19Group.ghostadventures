@@ -5,20 +5,16 @@ using UnityEngine;
 public class MemoryFragment : MonoBehaviour
 {
     public MemoryData data;
-    private bool isScanned = false;
+    public bool isScanned = false;
 
     private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        if (spriteRenderer != null && data != null)
-        {
-            spriteRenderer.sprite = data.unRevealedSprite;
-        }
     }
 
-    public void Scan()
+    public void IsScanned()
     {
         if (isScanned) return;
         isScanned = true;
@@ -38,6 +34,12 @@ public class MemoryFragment : MonoBehaviour
             case MemoryData.MemoryType.Fake:
                 FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
                 break;
+        }
+
+        // 스캔 후 외형으로 변경
+        if (spriteRenderer != null && data.revealedSprite != null)
+        {
+            spriteRenderer.sprite = data.revealedSprite;
         }
     }
 }
