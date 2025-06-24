@@ -17,7 +17,7 @@ public class AnimalPossessable : BasePossessable
 
     void FixedUpdate()
     {
-        if (PossessionStateManager.Instance.currentState != PossessionStateManager.State.Possessing)
+        if (!isPossessed)
             return;
 
         HandleMovement();

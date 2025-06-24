@@ -1,12 +1,14 @@
 ﻿using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MemoryFragment : MonoBehaviour
 {
     public MemoryData data;
     public bool isScanned = false;
+    public GameObject interactionInfo;
 
     [Header("드랍 조각 프리팹")]
     [SerializeField] private GameObject fragmentDropPrefab;
@@ -15,6 +17,22 @@ public class MemoryFragment : MonoBehaviour
     [SerializeField] private Vector3 dropOffset = new Vector3(0f, 0f, 0f); // 생성 위치 조정
     [SerializeField] private float bounceHeight = 0.3f;
     [SerializeField] private float bounceDuration = 0.5f;
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !isScanned)
+        {
+            interactionInfo.SetActive(true);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            interactionInfo.SetActive(false);
+        }
+    }
 
     public void IsScanned()
     {
@@ -42,7 +60,10 @@ public class MemoryFragment : MonoBehaviour
     private IEnumerator DropAndPlayMemory(GameObject drop)
     {
         yield return StartCoroutine(DropBounceAnimation(drop));
-        //yield return StartCoroutine(기억연출);
+        yield return StartCoroutine(RotateAroundMemory(drop));
+        yield return StartCoroutine(MoveToPlayerAndAbsorb(drop));
+
+        Destroy(drop); // 조각 제거
     }
 
     private IEnumerator DropBounceAnimation(GameObject drop)
@@ -70,6 +91,51 @@ public class MemoryFragment : MonoBehaviour
         }
 
         drop.transform.position = endPos;
+    }
+
+    private IEnumerator RotateAroundMemory(GameObject drop)
+    {
+        float duration = 1f;
+        float radius = 0.5f;
+        float angle = 0f;
+        float speed = 360f / duration; // 1초에 한 바퀴
+
+        Vector3 center = transform.position;
+        float timer = 0f;
+
+        while (timer < duration)
+        {
+            angle += speed * Time.deltaTime;
+            float rad = angle * Mathf.Deg2Rad;
+            drop.transform.position = center + new Vector3(Mathf.Cos(rad), Mathf.Sin(rad)) * radius;
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+    private IEnumerator MoveToPlayerAndAbsorb(GameObject drop)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) yield break;
+
+        Vector3 startPos = drop.transform.position;
+        Vector3 targetPos = player.transform.position;
+        Vector3 startScale = drop.transform.localScale;
+        Vector3 endScale = Vector3.zero;
+
+        float duration = 0.5f;
+        float t = 0f;
+
+        while (t < duration)
+        {
+            drop.transform.position = Vector3.Lerp(startPos, targetPos, t / duration);
+            drop.transform.localScale = Vector3.Lerp(startScale, endScale, t / duration);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        drop.transform.position = targetPos;
+        drop.transform.localScale = endScale;
     }
 
     private Sprite GetFragmentSpriteByType(MemoryData.MemoryType type)

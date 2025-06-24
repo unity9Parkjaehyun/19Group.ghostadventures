@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPossessable
 {
+    protected bool isPossessed = false;
     public virtual void Interact()
     {
         PossessionSystem.Instance.TryPossess(this);
@@ -19,12 +20,13 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
     public virtual void Unpossess()
     {
         Debug.Log("빙의 해제");
+        isPossessed = false;
         PossessionStateManager.Instance.UnPossess();
     }
 
     void Update()
     {
-        if(PossessionStateManager.Instance.currentState != PossessionStateManager.State.Possessing)
+        if (!isPossessed)
             return;
         
         if(Input.GetKeyDown(KeyCode.E))

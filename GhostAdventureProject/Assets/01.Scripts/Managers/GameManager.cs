@@ -10,7 +10,6 @@ public class GameManager : Singleton<GameManager>
 
     public GameObject playerPrefab;
     private GameObject currentPlayer;
-    // 레이지 이니셜라이즈
 
     public void SpawnPlayer()
     {
