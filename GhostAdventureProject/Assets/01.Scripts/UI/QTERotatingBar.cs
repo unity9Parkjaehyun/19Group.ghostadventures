@@ -9,14 +9,13 @@ public class QTERotatingBar : MonoBehaviour
     public float rotateSpeed = 90f;   // 초당 회전 속도(도)
     public KeyCode inputKey = KeyCode.Space;
     public Image successArc;
-    public float minAngle = 120f;
-    public float maxAngle = 150f;
+    public float minAngle = 120f; // 추후 매개변수로 변경
+    public float maxAngle = 150f; // 추후 매개변수로 변경
     private float currentAngle = 0f; // 현재 각도. (바늘은 시작시 0도, 최대로 갔을 때 -180도 (반원))
     
 
     public void StartQTE()
     {
-        currentAngle = 0f; // 현재각도 초기화
         gameObject.SetActive(true); // QTE UI 화면에 뜸
         needle.localEulerAngles = Vector3.zero; // 바늘은 0도부터 시작
 
@@ -26,6 +25,7 @@ public class QTERotatingBar : MonoBehaviour
         {
             Debug.Log("❌ QTE 실패");
             gameObject.SetActive(false);
+            currentAngle = 0f;  // 현재각도 초기화
             return;
         }
         
@@ -43,6 +43,7 @@ public class QTERotatingBar : MonoBehaviour
                 Debug.Log("❌ QTE 실패 (타이밍 안 맞음)");
             }
             gameObject.SetActive(false);
+            currentAngle = 0f;  // 현재각도 초기화
         }
     }
 
