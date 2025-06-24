@@ -12,8 +12,11 @@ public class Prompt_test : MonoBehaviour
             "프롬프트 테스트 중입니다",
             "잘 작동하나요?"            
         };
-
+        // 클릭으로 다음 line으로 넘어갑니다. ShowPrompt(string[])
         Prompt.Instance.ShowPrompt(lines);
+
+        // 지정한 시간(2f) 뒤에 자동으로 사라집니다. ShowPrompt(string, float)
+        Prompt.Instance.ShowPrompt("프롬프트 테스트입니다. 잘 작동 하나요?", 2f);
     }
 }
 
