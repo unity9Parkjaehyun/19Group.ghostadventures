@@ -1,16 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     [Header("Managers")]
+    // [SerializeField] private GameObject fakeEndingManager;
+    // [SerializeField] private GameObject uiManager;
+
     public GameObject playerPrefab;
     private GameObject currentPlayer;
 
     private void Start()
     {
         SpawnPlayer();
-
     }
 
     public void SpawnPlayer()
@@ -20,9 +24,6 @@ public class GameManager : Singleton<GameManager>
             currentPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
             DontDestroyOnLoad(currentPlayer);
         }
-
-        // Player 생성 후 EnemyAI에 할당
-        AssignPlayerToEnemies();
     }
 
     public GameObject Player => currentPlayer;
@@ -33,8 +34,11 @@ public class GameManager : Singleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"씬 로드됨: {scene.name}");
-        // 씬이 바뀔 때마다 EnemyAI에 Player를 다시 할당
-        AssignPlayerToEnemies();
+        // EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
+        //EnsureManagerExists<UIManager>(uiManager);
+
+        // 다른 매니저들도 같은 방식으로
+        // 추후 스테이지 초기화, UI 초기화 등 여기에 추가
     }
 
     private void EnsureManagerExists<T>(GameObject prefab) where T : MonoBehaviour
@@ -43,17 +47,6 @@ public class GameManager : Singleton<GameManager>
         {
             Instantiate(prefab);
             Debug.Log($"[{typeof(T).Name}] 자동 생성됨");
-        }
-    }
-
-    // 중복되는 할당 코드를 메서드로 분리
-    private void AssignPlayerToEnemies()
-    {
-        EnemyAI[] enemies = FindObjectsOfType<EnemyAI>();
-        foreach (var enemy in enemies)
-        {
-            if (currentPlayer != null)
-                enemy.Player = currentPlayer.transform;
         }
     }
 }

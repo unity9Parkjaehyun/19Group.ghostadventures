@@ -38,7 +38,6 @@ public class EnemyAI : MonoBehaviour
 
     private PlayerHide playerHide;
     private Transform currentHideArea;
-    private bool wasChasing = false;
 
     private enum AIState
     {
@@ -56,9 +55,11 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        // 최초 Enemy 위치만 startPos로 고정
         startPos = transform.position;
-        // Patrol 포인트도 최초 한 번만 세팅
+        if (Player != null)
+        {
+            playerHide = Player.GetComponent<PlayerHide>();
+        }
         SetupPatrolPoints();
         ChangeState(AIState.Patrolling);
     }
@@ -66,30 +67,8 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         stateTimer += Time.deltaTime;
-
-        if (Player != null && playerHide == null)
-        {
-            playerHide = Player.GetComponent<PlayerHide>();
-        }
-
         UpdateCurrentState();
         CheckStateTransitions();
-        if (currentState == AIState.Chasing)
-        {
-            if (!wasChasing)
-            {
-                SetPlayerPossessionLock(false); // 빙의 금지
-                wasChasing = true;
-            }
-        }
-        else
-        {
-            if (wasChasing)
-            {
-                SetPlayerPossessionLock(true); // 빙의 허용
-                wasChasing = false;
-            }
-        }
     }
 
     void ChangeState(AIState newState)
@@ -157,42 +136,40 @@ public class EnemyAI : MonoBehaviour
         }
 
         bool hiding = playerHide != null && playerHide.IsHiding;
-        bool possessing = PossessionStateManager.Instance != null && PossessionStateManager.Instance.IsPossessing();
-
         float dist = Vector3.Distance(transform.position, Player.position);
         bool inRange = dist < detectionRange;
 
         switch (currentState)
         {
             case AIState.Patrolling:
-                if (hiding || possessing) { FindCurrentHideArea(); ChangeState(AIState.SearchWaiting); }
+                if (hiding) { FindCurrentHideArea(); ChangeState(AIState.SearchWaiting); }
                 else if (inRange) ChangeState(AIState.Chasing);
                 break;
             case AIState.Chasing:
-                if (hiding || possessing) { FindCurrentHideArea(); ChangeState(AIState.SearchWaiting); }
+                if (hiding) { FindCurrentHideArea(); ChangeState(AIState.SearchWaiting); }
                 else if (!inRange) ChangeState(AIState.LostTarget);
                 break;
             case AIState.SearchWaiting:
-                if (!(hiding || possessing) && inRange) ChangeState(AIState.Chasing);
+                if (!hiding && inRange) ChangeState(AIState.Chasing);
                 else if (stateTimer >= searchWaitTime) ChangeState(AIState.Searching);
                 break;
             case AIState.Searching:
-                if (!(hiding || possessing) && inRange) ChangeState(AIState.Chasing);
+                if (!hiding && inRange) ChangeState(AIState.Chasing);
                 break;
             case AIState.SearchComplete:
-                if (!(hiding || possessing) && inRange) ChangeState(AIState.Chasing);
+                if (!hiding && inRange) ChangeState(AIState.Chasing);
                 else if (stateTimer >= searchEndWaitTime) ChangeState(AIState.Returning);
                 break;
             case AIState.LostTarget:
-                if (!(hiding || possessing) && inRange) ChangeState(AIState.Chasing);
+                if (!hiding && inRange) ChangeState(AIState.Chasing);
                 else if (stateTimer >= lostTargetWaitTime) ChangeState(AIState.Returning);
                 break;
             case AIState.Returning:
-                if (!(hiding || possessing) && inRange) ChangeState(AIState.Chasing);
+                if (!hiding && inRange) ChangeState(AIState.Chasing);
                 else if (Vector3.Distance(transform.position, startPos) <= 0.5f) ChangeState(AIState.Waiting);
                 break;
             case AIState.Waiting:
-                if (!(hiding || possessing) && inRange) ChangeState(AIState.Chasing);
+                if (!hiding && inRange) ChangeState(AIState.Chasing);
                 else if (stateTimer >= returnedWaitTime) ChangeState(AIState.Patrolling);
                 break;
         }
@@ -273,16 +250,7 @@ public class EnemyAI : MonoBehaviour
     void MoveToTarget(float speed)
     {
         if (!isMoving) return;
-
-        Vector3 previousPos = transform.position;
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
-
-        // 이동 방향에 따라 스프라이트 뒤집기 
-        float moveDirection = transform.position.x - previousPos.x;
-        if (moveDirection > 0.01f)
-            transform.localScale = new Vector3(1, 1, 1);
-        else if (moveDirection < -0.01f)
-            transform.localScale = new Vector3(-1, 1, 1);
     }
 
     void StopMoving()
@@ -297,7 +265,6 @@ public class EnemyAI : MonoBehaviour
         currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
     }
 
-    // ** SetupPatrolPoints는 Start에서만 호출, 이후엔 절대 다시 호출하지 마세요! **
     void SetupPatrolPoints()
     {
         Vector3 leftPoint = startPos + Vector3.left * patrolDistance;
@@ -368,14 +335,5 @@ public class EnemyAI : MonoBehaviour
         }
 
         currentHideArea = closestArea;
-    }
-    void SetPlayerPossessionLock(bool canPossess)
-    {
-        if (Player != null)
-        {
-            var pc = Player.GetComponent<PlayerController>();
-            if (pc != null)
-                pc.SetCanPossess(canPossess);
-        }
     }
 }

@@ -6,12 +6,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    private IInteractionTarget currentTarget;
-
+    private BasePossessable currentTarget;
+    
     private Animator animator;
     private bool isLocked = false;
-    private bool canPossess = true;
-
+    
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -19,57 +18,54 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isLocked || QTESystem.Instance.IsRunning())
-            return;
-
+        //if (isLocked || PossessionQTESystem.Instance.IsRunning())
+        //    return;
+        
         HandleMovement();
         HandleInteraction();
     }
-    public void SetCanPossess(bool value)
-    {
-        canPossess = value;
-    }
-    private void HandleMovement()
+
+    private void HandleMovement() // 기본 이동 처리
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(h, v, 0);
         transform.position += move * moveSpeed * Time.deltaTime;
-
+        
         // 회전
         if (h > 0.01f)
             transform.localScale = new Vector3(1, 1, 1);
         else if (h < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
-
+        
         bool isMoving = move.magnitude > 0.01f;
         animator.SetBool("Move", isMoving);
     }
 
-    private void HandleInteraction()
+    private void HandleInteraction() // 상호작용 입력 처리
     {
-        if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
+        if(Input.GetKeyDown(KeyCode.E) && currentTarget != null)
             currentTarget.Interact();
     }
 
-    public void SetInteractTarget(IInteractionTarget target) // 플레이어가 대상 가까이 갈때마다 트리거에서 호출 추천
+    public void SetInteractTarget(BasePossessable target) // 플레이어가 대상 가까이 갈때마다 트리거에서 호출 추천
     {
         currentTarget = target;
     }
 
-    public void ClearInteractionTarget(IInteractionTarget target)
+    public void ClearInteractionTarget(BasePossessable target)
     {
-        if (currentTarget == target)
+        if (currentTarget == null)
             currentTarget = null;
     }
-
-    public void PlayPossessionInAnimation()
+    
+    public void PlayPossessionInAnimation() // 빙의 시작 애니메이션
     {
         isLocked = true;
         animator.SetTrigger("PossessIn");
     }
-
-    public void StartPossessionOutSequence()
+  
+    public void StartPossessionOutSequence() // 빙의 해제 애니메이션 코루틴으로
     {
         StartCoroutine(DelayedPossessionOutPlay());
     }
@@ -81,13 +77,13 @@ public class PlayerController : MonoBehaviour
         animator.Play("Player_PossessionOut");
     }
 
-    public void OnPossessionInAnimationComplete()
+    public void OnPossessionInAnimationComplete() // 빙의 시작 애니메이션 후 이벤트
     {
         isLocked = false;
         PossessionStateManager.Instance.PossessionInAnimationComplete();
     }
 
-    public void OnPossessionOutAnimationComplete()
+    public void OnPossessionOutAnimationComplete() // 빙의 해제 애니메이션 후 이벤트
     {
         isLocked = false;
         PossessionStateManager.Instance.PossessionOutAnimationComplete();
