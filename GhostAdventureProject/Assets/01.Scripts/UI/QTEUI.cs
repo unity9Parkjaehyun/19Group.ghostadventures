@@ -1,9 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestQTEUI : Singleton<TestQTEUI>
+public class QTEUI : Singleton<QTEUI>
 {
     public RectTransform needle;
     public float rotateSpeed = 90f;
@@ -15,7 +15,7 @@ public class TestQTEUI : Singleton<TestQTEUI>
     private float currentAngle = 0f;
     private bool isRunning = false;
 
-    public void StartQTE()
+    public void ShowQTEUI()
     {
         currentAngle = 0f;
         needle.localEulerAngles = Vector3.zero;
@@ -35,7 +35,7 @@ public class TestQTEUI : Singleton<TestQTEUI>
             isRunning = false;
             gameObject.SetActive(false);
             Debug.Log("❌ QTE 실패");
-            QTESystem.Instance.HandleQTEResult(false);
+            PossessionQTESystem.Instance.HandleQTEResult(false);
             return;
         }
 
@@ -47,7 +47,7 @@ public class TestQTEUI : Singleton<TestQTEUI>
             gameObject.SetActive(false);
             bool success = (currentAngle >= minAngle && currentAngle <= maxAngle);
             Debug.Log(success ? "✅ QTE 성공!" : "❌ QTE 실패 (타이밍 안 맞음)");
-            QTESystem.Instance.HandleQTEResult(success);
+            PossessionQTESystem.Instance.HandleQTEResult(success);
         }
     }
 
