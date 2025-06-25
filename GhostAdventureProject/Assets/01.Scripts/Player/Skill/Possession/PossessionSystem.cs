@@ -12,7 +12,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
             return false;
         }
         SoulEnergySystem.Instance.Consume(3);
-        target.RequestPossession();
+        //target.RequestPossession();
         return true;
     }
 }

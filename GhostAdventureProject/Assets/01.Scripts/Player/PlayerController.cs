@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (isLocked || QTESystem.Instance.IsRunning())
-            return;
+        //if (isLocked || PossessionQTESystem.Instance.IsRunning())
+        //    return;
         
         HandleMovement();
         HandleInteraction();

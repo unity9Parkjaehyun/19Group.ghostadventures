@@ -442,6 +442,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063243919429878705, guid: 97e1ce988bb7d664eb3457da7c78aa64, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063243919429878705, guid: 97e1ce988bb7d664eb3457da7c78aa64, type: 3}
       propertyPath: scanPanel
       value: 
       objectReference: {fileID: 507947866}

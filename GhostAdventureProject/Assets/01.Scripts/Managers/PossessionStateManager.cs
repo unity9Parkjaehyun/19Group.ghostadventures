@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,13 +26,13 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
         ghostPlayer.SetActive(false);
         possessedTarget.SetActive(true);
         currentState = State.Possessing;
-        if (possessedTarget.TryGetComponent(out BasePossessable possessable))
-            possessable.SetPossessed(true);
+        //if (possessedTarget.TryGetComponent(out BasePossessable possessable))
+            //possessable.SetPossessed(true);
     }
 
     public void StartUnpossessTransition() // 빙의 해체 요청 ( 위치 이동 , 활성화, 빙의 해제 애니메이션 실행 )
     {
-        // possessedTarget.SetActive(false);
+         possessedTarget.SetActive(false);
         ghostPlayer.transform.position = possessedTarget.transform.position + spawnOffset;
         ghostPlayer.SetActive(true);
         ghostPlayer.GetComponent<PlayerController>().StartPossessionOutSequence();

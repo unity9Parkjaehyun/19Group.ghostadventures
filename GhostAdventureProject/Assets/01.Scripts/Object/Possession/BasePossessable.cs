@@ -47,7 +47,7 @@ public abstract class BasePossessable : MonoBehaviour
     {
         Debug.Log("빙의 해제");
         isPossessed = false;
-        PossessionStateManager.Instance.UnPossess();
+        //PossessionStateManager.Instance.UnPossess();
     }
 
     void Update()
@@ -63,13 +63,13 @@ public abstract class BasePossessable : MonoBehaviour
     {
         Debug.Log("QTE 성공 - 빙의 완료");
         isPossessed = true;
-        PossessionStateManager.Instance.Possess(this);
+        //PossessionStateManager.Instance.Possess(this);
     }
 
     public void OnQTEFailure()
     {
         Debug.Log("QTE 실패 - 빙의 취소");
         isPossessed = false;
-        PossessionStateManager.Instance.UnPossess();
+        //PossessionStateManager.Instance.UnPossess();
     }
 }
