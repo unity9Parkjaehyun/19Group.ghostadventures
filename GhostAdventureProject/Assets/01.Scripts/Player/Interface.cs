@@ -9,6 +9,7 @@ public interface IInteractionTarget
 
 public interface IPossessable
 {
-    void Possess();
-    void Unpossess();
+    void RequestPossession();
+    void RequestUnpossess();
+    void OnQTESuccess();
 }

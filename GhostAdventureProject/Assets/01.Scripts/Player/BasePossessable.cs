@@ -12,17 +12,22 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
         PossessionSystem.Instance.TryPossess(this);
     }
 
-    public virtual void Possess()
+    public virtual void RequestPossession() // 빙의 요청
     {
         Debug.Log($"{name} 빙의 시도 - QTE 호출");
         QTESystem.Instance.StartQTE(this);
     }
 
-    public virtual void Unpossess()
+    public virtual void RequestUnpossess()
     {
         Debug.Log("빙의 해제");
         isPossessed = false;
-        PossessionStateManager.Instance.UnPossess();
+        PossessionStateManager.Instance.StartUnpossessTransition();
+    }
+    
+    public virtual void OnQTESuccess()
+    {
+        Debug.Log("QTE 성공: 기본 빙의 성공 처리");
     }
     
     public void SetPossessed(bool value)
@@ -36,6 +41,6 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
             return;
         
         if(Input.GetKeyDown(KeyCode.E))
-            Unpossess();
+            RequestUnpossess();
     }
 }

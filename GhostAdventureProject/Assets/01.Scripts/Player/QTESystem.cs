@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class QTESystem : Singleton<QTESystem>
 {
-    private IPossessable currentPossessable;
+    private BasePossessable currentPossessable;
     // public QTERotatingBar qTERotatingBar;
     public TestQTEUI testQTEUI;
     
     private bool isRunning = false;
     public bool IsRunning() => isRunning;
 
-    public void StartQTE(IPossessable target)
+    public void StartQTE(BasePossessable target) // 시작
     {
         currentPossessable = target;
         Debug.Log("Starting QTE");
@@ -23,14 +23,13 @@ public class QTESystem : Singleton<QTESystem>
         // HandleQTEResult(true);
     }
 
-    public void HandleQTEResult(bool success)
+    public void HandleQTEResult(bool success) // 결과 처리
     {
         isRunning = false;
         if (success)
         {
             Debug.Log("QTE succeeded");
-            if(currentPossessable is RatPossessable rat)
-                rat.OnQTESuccess();
+            currentPossessable.OnQTESuccess();
         }
         else
         {
