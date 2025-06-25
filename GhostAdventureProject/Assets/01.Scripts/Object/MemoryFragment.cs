@@ -114,7 +114,7 @@ public class MemoryFragment : MonoBehaviour
 
         Destroy(drop);
         SceneManager.LoadScene(data.CutSceneName, LoadSceneMode.Additive); // 스캔 완료 후 씬 전환
-        Time.timeScale = 0f;
+        Time.timeScale = 0;
         ApplyMemoryEffect(); // 메모리 효과 적용
     }
 
