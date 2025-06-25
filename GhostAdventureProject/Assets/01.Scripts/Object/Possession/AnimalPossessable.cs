@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +7,7 @@ public class AnimalPossessable : BasePossessable
 {
     [SerializeField] private float moveSpeed = 3f;
 
-    protected virtual void HandleMovement()
+    void Move()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -15,11 +15,11 @@ public class AnimalPossessable : BasePossessable
         transform.position += move * moveSpeed * Time.deltaTime;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!isPossessed)
             return;
 
-        HandleMovement();
+        Move();
     }
 }

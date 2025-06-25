@@ -6,7 +6,7 @@ public class RatPossessable : AnimalPossessable
 {
     public void OnActivate() // qte 성공 시 빙의 전환 요청
     {
-        // isPossessed = true;
-        PossessionStateManager.Instance.StartPossessionTransition(GameManager.Instance.Player, this.gameObject);
+        isPossessed = true;
+        PossessionStateManager.Instance.StartPossessionTransition(this.gameObject);
     }
 }

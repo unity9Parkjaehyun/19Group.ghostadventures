@@ -10,7 +10,9 @@ public class GameManager : Singleton<GameManager>
     // [SerializeField] private GameObject uiManager;
 
     public GameObject playerPrefab;
+
     private GameObject currentPlayer;
+    private PlayerController playerController;
 
     private void Start()
     {
@@ -21,12 +23,15 @@ public class GameManager : Singleton<GameManager>
     {
         if (currentPlayer == null)
         {
-            currentPlayer = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-            DontDestroyOnLoad(currentPlayer);
+            GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            currentPlayer = go;
+            playerController = go.GetComponent<PlayerController>();
+            DontDestroyOnLoad(go);
         }
     }
 
     public GameObject Player => currentPlayer;
+    public PlayerController PlayerController => playerController;
 
     private void OnEnable() => SceneManager.sceneLoaded += OnSceneLoaded;
     private void OnDisable() => SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -34,7 +39,7 @@ public class GameManager : Singleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"씬 로드됨: {scene.name}");
-        // EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
+        //EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
         //EnsureManagerExists<UIManager>(uiManager);
 
         // 다른 매니저들도 같은 방식으로
