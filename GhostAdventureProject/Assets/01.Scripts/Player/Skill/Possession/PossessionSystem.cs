@@ -1,10 +1,10 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PossessionSystem : Singleton<PossessionSystem>
 {
-    public bool TryPossess(IPossessable target) // 빙의 시도 ( 에너지 체크 )
+    public bool TryPossess(BasePossessable target)
     {
         if (!SoulEnergySystem.Instance.HasEnoughEnergy(3))
         {

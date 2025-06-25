@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    private IInteractionTarget currentTarget;
+    private BasePossessable currentTarget;
     
     private Animator animator;
     private bool isLocked = false;
@@ -48,12 +48,12 @@ public class PlayerController : MonoBehaviour
             currentTarget.Interact();
     }
 
-    public void SetInteractTarget(IInteractionTarget target) // 플레이어가 대상 가까이 갈때마다 트리거에서 호출 추천
+    public void SetInteractTarget(BasePossessable target) // 플레이어가 대상 가까이 갈때마다 트리거에서 호출 추천
     {
         currentTarget = target;
     }
 
-    public void ClearInteractionTarget(IInteractionTarget target)
+    public void ClearInteractionTarget(BasePossessable target)
     {
         if (currentTarget == null)
             currentTarget = null;
