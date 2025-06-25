@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     private IInteractionTarget currentTarget;
     
     private Animator animator;
-
+    private bool isLocked = false;
+    
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -17,6 +18,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (isLocked || QTESystem.Instance.IsRunning())
+            return;
+        
         HandleMovement();
         HandleInteraction();
     }
@@ -53,5 +57,35 @@ public class PlayerController : MonoBehaviour
     {
         if (currentTarget == null)
             currentTarget = null;
+    }
+    
+    public void PlayPossessionInAnimation()
+    {
+        isLocked = true;
+        animator.SetTrigger("PossessIn");
+    }
+  
+    public void StartPossessionOutSequence()
+    {
+        StartCoroutine(DelayedPossessionOutPlay());
+    }
+
+    private IEnumerator DelayedPossessionOutPlay()
+    {
+        yield return null; // 한 프레임 딜레이
+        isLocked = true;
+        animator.Play("Player_PossessionOut");
+    }
+
+    public void OnPossessionInAnimationComplete()
+    {
+        isLocked = false;
+        PossessionStateManager.Instance.PossessionInAnimationComplete();
+    }
+
+    public void OnPossessionOutAnimationComplete()
+    {
+        isLocked = false;
+        PossessionStateManager.Instance.PossessionOutAnimationComplete();
     }
 }

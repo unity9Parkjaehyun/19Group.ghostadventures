@@ -7,12 +7,16 @@ public class QTESystem : Singleton<QTESystem>
     private IPossessable currentPossessable;
     // public QTERotatingBar qTERotatingBar;
     public TestQTEUI testQTEUI;
+    
+    private bool isRunning = false;
+    public bool IsRunning() => isRunning;
 
     public void StartQTE(IPossessable target)
     {
         currentPossessable = target;
         Debug.Log("Starting QTE");
         // qTERotatingBar.StartQTE();
+        isRunning = true;
         testQTEUI.StartQTE();
         
         // 임시 성공 처리
@@ -21,6 +25,7 @@ public class QTESystem : Singleton<QTESystem>
 
     public void HandleQTEResult(bool success)
     {
+        isRunning = false;
         if (success)
         {
             Debug.Log("QTE succeeded");
