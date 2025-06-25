@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class RatPossessable : AnimalPossessable
 {
-    public void OnQTESuccess()
+    public override void OnQTESuccess() // qte 성공 시 빙의 전환 요청
     {
         // isPossessed = true;
-        PossessionStateManager.Instance.Possess(GameManager.Instance.Player, this.gameObject);
+        PossessionStateManager.Instance.StartPossessionTransition(GameManager.Instance.Player, this.gameObject);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PossessionSystem : Singleton<PossessionSystem>
 {
-    public bool TryPossess(IPossessable target)
+    public bool TryPossess(IPossessable target) // 빙의 시도 ( 에너지 체크 )
     {
         if (!SoulEnergySystem.Instance.HasEnoughEnergy(3))
         {
@@ -12,7 +12,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
             return false;
         }
         SoulEnergySystem.Instance.Consume(3);
-        target.Possess();
+        target.RequestPossession();
         return true;
     }
 }

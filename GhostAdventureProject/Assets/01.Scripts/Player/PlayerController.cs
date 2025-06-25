@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
         HandleInteraction();
     }
 
-    private void HandleMovement()
+    private void HandleMovement() // 기본 이동 처리
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Move", isMoving);
     }
 
-    private void HandleInteraction()
+    private void HandleInteraction() // 상호작용 입력 처리
     {
         if(Input.GetKeyDown(KeyCode.E) && currentTarget != null)
             currentTarget.Interact();
@@ -59,13 +59,13 @@ public class PlayerController : MonoBehaviour
             currentTarget = null;
     }
     
-    public void PlayPossessionInAnimation()
+    public void PlayPossessionInAnimation() // 빙의 시작 애니메이션
     {
         isLocked = true;
         animator.SetTrigger("PossessIn");
     }
   
-    public void StartPossessionOutSequence()
+    public void StartPossessionOutSequence() // 빙의 해제 애니메이션 코루틴으로
     {
         StartCoroutine(DelayedPossessionOutPlay());
     }
@@ -77,13 +77,13 @@ public class PlayerController : MonoBehaviour
         animator.Play("Player_PossessionOut");
     }
 
-    public void OnPossessionInAnimationComplete()
+    public void OnPossessionInAnimationComplete() // 빙의 시작 애니메이션 후 이벤트
     {
         isLocked = false;
         PossessionStateManager.Instance.PossessionInAnimationComplete();
     }
 
-    public void OnPossessionOutAnimationComplete()
+    public void OnPossessionOutAnimationComplete() // 빙의 해제 애니메이션 후 이벤트
     {
         isLocked = false;
         PossessionStateManager.Instance.PossessionOutAnimationComplete();
