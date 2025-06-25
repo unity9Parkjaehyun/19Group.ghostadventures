@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPossessable
 {
     protected bool isPossessed = false;
+    public bool IsPossessed => isPossessed; // getter 프로퍼티 추가
     public virtual void Interact()
     {
         if (PossessionStateManager.Instance.IsPossessing()) return; // 빙의 중일 때 상호작용 차단
@@ -24,7 +25,7 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
         isPossessed = false;
         PossessionStateManager.Instance.UnPossess();
     }
-    
+
     public void SetPossessed(bool value)
     {
         isPossessed = value;
@@ -34,8 +35,12 @@ public abstract class BasePossessable : MonoBehaviour, IInteractionTarget, IPoss
     {
         if (!isPossessed)
             return;
-        
-        if(Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyDown(KeyCode.E))
             Unpossess();
+    }
+    public virtual void OnQTESuccess()
+    {
+        PossessionStateManager.Instance.Possess(GameManager.Instance.Player, this.gameObject);
     }
 }

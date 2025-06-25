@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +7,11 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     private IInteractionTarget currentTarget;
-    
+
     private Animator animator;
     private bool isLocked = false;
-    
+    private bool canPossess = true;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -20,31 +21,34 @@ public class PlayerController : MonoBehaviour
     {
         if (isLocked || QTESystem.Instance.IsRunning())
             return;
-        
+
         HandleMovement();
         HandleInteraction();
     }
-
+    public void SetCanPossess(bool value)
+    {
+        canPossess = value;
+    }
     private void HandleMovement()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(h, v, 0);
         transform.position += move * moveSpeed * Time.deltaTime;
-        
+
         // 회전
         if (h > 0.01f)
             transform.localScale = new Vector3(1, 1, 1);
         else if (h < -0.01f)
             transform.localScale = new Vector3(-1, 1, 1);
-        
+
         bool isMoving = move.magnitude > 0.01f;
         animator.SetBool("Move", isMoving);
     }
 
     private void HandleInteraction()
     {
-        if(Input.GetKeyDown(KeyCode.E) && currentTarget != null)
+        if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
             currentTarget.Interact();
     }
 
@@ -55,16 +59,16 @@ public class PlayerController : MonoBehaviour
 
     public void ClearInteractionTarget(IInteractionTarget target)
     {
-        if (currentTarget == null)
+        if (currentTarget == target)
             currentTarget = null;
     }
-    
+
     public void PlayPossessionInAnimation()
     {
         isLocked = true;
         animator.SetTrigger("PossessIn");
     }
-  
+
     public void StartPossessionOutSequence()
     {
         StartCoroutine(DelayedPossessionOutPlay());

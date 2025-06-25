@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +7,13 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
 {
     public enum State { Ghost, Possessing }
     [SerializeField] private Vector3 spawnOffset = new Vector3(0f, 1f, 0f);
-    
+
     public State currentState { get; private set; } = State.Ghost;
-    
+
     private GameObject ghostPlayer;
     private GameObject possessedTarget;
     public bool IsPossessing() => currentState == State.Possessing;
-    
+
     public void Possess(GameObject ghost, GameObject target)
     {
         ghostPlayer = ghost;
@@ -32,10 +32,14 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
 
     public void UnPossess()
     {
-        // possessedTarget.SetActive(false);
+        //possessedTarget.SetActive(false);
+        if (possessedTarget.TryGetComponent(out BasePossessable possessable))
+            possessable.SetPossessed(false);
+
         ghostPlayer.transform.position = possessedTarget.transform.position + spawnOffset;
         ghostPlayer.SetActive(true);
         ghostPlayer.GetComponent<PlayerController>().StartPossessionOutSequence();
+
     }
 
 
