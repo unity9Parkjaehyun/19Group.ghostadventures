@@ -807,7 +807,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 688133098}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3a73dc93ee2e7f4c8fdd1e3151cba0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ac1de1977fa2d04d83ffb356a31d4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   virtualCam: {fileID: 688133099}
@@ -1429,7 +1429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d72355b66164e44b3d564e6410252c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testQTEUI: {fileID: 0}
 --- !u!4 &1585913322
 Transform:
   m_ObjectHideFlags: 0
