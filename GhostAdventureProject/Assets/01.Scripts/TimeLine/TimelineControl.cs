@@ -30,6 +30,8 @@ public class TimelineControl : MonoBehaviour
     string currentSceneName = gameObject.scene.name; //연출되고있는 씬이름 저장
         Time.timeScale = 1;
         SceneManager.UnloadSceneAsync(currentSceneName); //연출씬 닫고 원래 씬 이동
+
+        
     }
 
 }

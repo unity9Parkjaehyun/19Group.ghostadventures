@@ -177,18 +177,16 @@ PlayableDirector:
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
   m_SceneBindings:
-  - key: {fileID: 8359603020320137958, guid: 18b519f238c735249bd5334bc0253033, type: 2}
-    value: {fileID: 1531744803}
   - key: {fileID: -3675196260047919139, guid: 18b519f238c735249bd5334bc0253033, type: 2}
     value: {fileID: 427254622}
   - key: {fileID: -761731299643782927, guid: 18b519f238c735249bd5334bc0253033, type: 2}
     value: {fileID: 475575892}
   - key: {fileID: 5505127681167738230, guid: 18b519f238c735249bd5334bc0253033, type: 2}
     value: {fileID: 1979636058}
-  - key: {fileID: 9161119810411520973, guid: 18b519f238c735249bd5334bc0253033, type: 2}
-    value: {fileID: 120213858}
   - key: {fileID: -3204226180778575214, guid: 18b519f238c735249bd5334bc0253033, type: 2}
     value: {fileID: 1296952563}
+  - key: {fileID: -7659251670869052802, guid: 18b519f238c735249bd5334bc0253033, type: 2}
+    value: {fileID: 120213858}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &27353345
@@ -727,7 +725,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1531744803
 Animator:
   serializedVersion: 5
