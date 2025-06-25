@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MemoryScan : MonoBehaviour
@@ -142,7 +143,11 @@ public class MemoryScan : MonoBehaviour
         //currentScanObject = null;
         //currentMemoryFragment = null;
 
-
+        // 여기에 스캔 완료 후 처리 로직 추가 (예: UI 업데이트, 사운드 재생 등)
+        
+        //SceneManager.LoadScene($"{currentMemoryFragment.data.CutSceneName}", LoadSceneMode.Additive); // 스캔 완료 후 씬 전환
+        //Time.timeScale = 0f; // 시간 흐름을 원래대로 복구
+        
     }
 
     private void CancelScan(string reason)

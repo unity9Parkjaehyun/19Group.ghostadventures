@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MemoryFragment : MonoBehaviour
 {
@@ -98,7 +99,6 @@ public class MemoryFragment : MonoBehaviour
                 sr.sortingOrder = (offset.z > 0) ? 1 : -1;
 
         }, startAngleDeg - 360f, rotateTime).SetEase(Ease.InOutSine);
-
         yield return rotate.WaitForCompletion();
 
         // === 3. 플레이어에게 흡수 ===
@@ -113,6 +113,9 @@ public class MemoryFragment : MonoBehaviour
         yield return absorb.WaitForCompletion();
 
         Destroy(drop);
+        SceneManager.LoadScene(data.CutSceneName, LoadSceneMode.Additive); // 스캔 완료 후 씬 전환
+        Time.timeScale = 0f;
+        ApplyMemoryEffect(); // 메모리 효과 적용
     }
 
     private Sprite GetFragmentSpriteByType(MemoryData.MemoryType type)
@@ -126,21 +129,23 @@ public class MemoryFragment : MonoBehaviour
         };
     }
 
-    //private void ApplyMemoryEffect()
-    //{
-    //    switch (data.type)
-    //    {
-    //        case MemoryData.MemoryType.Positive:
-    //            //퍼즐 조건 해금
-    //            break;
+    public void ApplyMemoryEffect()
+    {
+        switch (data.type)
+        {
+            case MemoryData.MemoryType.Positive:
 
-    //        case MemoryData.MemoryType.Negative:
-    //            //ApplyDebuff(); // 적 추적 활성화 등
-    //            break;
+                Debug.Log($"MemoryFragment: {data.memoryID} - 스캔 완료!"); // 디버그용 로그
+                //퍼즐 조건 해금
+                break;
 
-    //        case MemoryData.MemoryType.Fake:
-    //            FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
-    //            break;
-    //    }
-    //}
+            case MemoryData.MemoryType.Negative:
+                //ApplyDebuff(); // 적 추적 활성화 등
+                break;
+
+            case MemoryData.MemoryType.Fake:
+                FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
+                break;
+        }
+    }
 }

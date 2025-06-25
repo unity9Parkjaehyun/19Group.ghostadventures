@@ -15,7 +15,7 @@ public class MemoryData : ScriptableObject
     public Sprite PositiveFragmentSprite;
     public Sprite NegativeFragmentSprite;
     public Sprite FakeFragmentSprite;
-
+    public string CutSceneName;
     // 갖고 있는 기억은 나중에
     //public Sprite memoryImage;       
     public string memoryTitle;
