@@ -7,6 +7,7 @@ public abstract class BasePossessable : MonoBehaviour
 {
     public GameObject interactionInfo;
     protected bool isPossessed = false;
+    public bool IsPossessed => isPossessed;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -54,8 +55,8 @@ public abstract class BasePossessable : MonoBehaviour
     {
         if (!isPossessed)
             return;
-        
-        if(Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyDown(KeyCode.E))
             Unpossess();
     }
 
