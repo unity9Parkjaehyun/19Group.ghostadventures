@@ -2,6 +2,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening; 
 
 public class TypewriterDialogue : MonoBehaviour
 {
@@ -42,10 +43,16 @@ public class TypewriterDialogue : MonoBehaviour
     }
     public void StartDialogue()
     {
-
+        index = 0; // 항상 처음부터
         dialoguePanel.SetActive(true); // 대화창 열기
         StartCoroutine(TypeLine());
+    }
 
+    public void StartShakeDialogue()
+    {
+        index = 0; // 항상 처음부터
+        dialoguePanel.SetActive(true); // 대화창 열기
+        StartCoroutine(TypeLineShake());
     }
     IEnumerator TypeLine()
     {
@@ -71,6 +78,31 @@ public class TypewriterDialogue : MonoBehaviour
     }
 
 
+    IEnumerator TypeLineShake()
+    {
+        isTyping = true;
+        dialogueText.text = "";
+
+        foreach (char letter in dialogues[index].ToCharArray())
+        {
+            if (skipTyping)
+            {
+                dialogueText.text = dialogues[index];
+                break;
+            }
+
+            dialogueText.text += letter;
+            ShakeDialogue(0.05f, 3f);
+            yield return new WaitForSecondsRealtime(typingSpeed);
+        }
+        // 대사가 모두 끝나면 타임라인 재생
+
+
+        isTyping = false;
+        skipTyping = false;
+    }
+
+
     void NextLine()
     {
         if (index < dialogues.Length - 1)
@@ -86,4 +118,19 @@ public class TypewriterDialogue : MonoBehaviour
             dialoguePanel.SetActive(false); // 대화창 닫기
         }
     }
+
+    void ShakeDialogue(float duration = 0.1f, float strength = 5f) //글자 흔들때 사용
+    {
+
+        // localPosition 기준으로 흔들림
+        dialoguePanel.transform.DOShakePosition(
+            duration,
+            strength,
+            vibrato: 10,
+            randomness: 90,
+            snapping: false,
+            fadeOut: true
+        ).SetUpdate(true); // Time.timeScale 0에서도 작동
+    }
+
 }
