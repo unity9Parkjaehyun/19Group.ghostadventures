@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class RatPossessable : AnimalPossessable
 {
-    public void OnActivate() // qte 성공 시 빙의 전환 요청
+    public void OnActivate()
     {
-        isPossessed = true;
-        PossessionStateManager.Instance.StartPossessionTransition(this.gameObject);
+        // 고유 기능 로직
     }
 }
