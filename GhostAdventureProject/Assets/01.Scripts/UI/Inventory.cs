@@ -22,10 +22,10 @@ public class Inventory : Singleton<Inventory>
     // public GameObject clueSlotPrefab;
     // public Transform clueSlotParent;
 
-    private List<ClueData> collectedClues = new List<ClueData>(); // 단서데이터를 모아놓은 리스트
-    private List<InventorySlot> inventorySlots; // 슬롯 4개
+    public List<ClueData> collectedClues = new List<ClueData>(); // 단서데이터를 모아놓은 리스트
+    public List<InventorySlot> inventorySlots; // 슬롯 4개
     private int currentPage = 0;
-    private int cluesPerPage = 5;
+    private int cluesPerPage = 4;
     // [SerializeField] TextMeshProUGUI currentPageText; // 현재 페이지 표시
 
     public void AddClue(ClueData clue)
@@ -81,6 +81,27 @@ public class Inventory : Singleton<Inventory>
     {
         currentPage = 0;
         RefreshUI();
+    }
+
+    private void Update()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0 + i))
+            {
+                int slotIndex = i - 1;
+                int clueIndex = currentPage * cluesPerPage + slotIndex;
+
+                if (InventoryExpandViewer.Instance.IsShowing())
+                {
+                    InventoryExpandViewer.Instance.HideClue();
+                }
+                else if (clueIndex < collectedClues.Count)
+                {
+                    InventoryExpandViewer.Instance.ShowClue(collectedClues[clueIndex]);
+                }
+            }
+        }
     }
 }
 
