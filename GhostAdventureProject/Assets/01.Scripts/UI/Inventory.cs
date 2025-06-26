@@ -22,16 +22,16 @@ public class Inventory : Singleton<Inventory>
     // public Transform clueSlotParent;
 
     public List<ClueData> collectedClues = new List<ClueData>(); // 단서데이터를 모아놓은 리스트
-    public List<InventorySlot> inventorySlots; // 슬롯 5개
+    public List<InventorySlot> inventorySlots; // 슬롯 4개
     private int currentPage = 0;
-    private int cluesPerPage = 5;
+    private int cluesPerPage = 4; //한 페이지에 보여줄 단서 수
     // [SerializeField] TextMeshProUGUI currentPageText; // 현재 페이지 표시
 
 
     public void AddClue(ClueData clue)
     {
         
-        // if (!collectedClues.Contains(clue)) //같은 clue 중복획득 방지 
+        // if (!collectedClues.Contains(clue)) //같은 단서 중복획득 방지 
         // {
             collectedClues.Add(clue);
             // UI 갱신 이벤트 호출

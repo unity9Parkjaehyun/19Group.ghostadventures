@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Timeline;
 
-public class CluePickup_test : MonoBehaviour
+public class CluePickup : MonoBehaviour
 {
     [Header("단서 ScriptableObject를 넣어주세요")]
     public ClueData clueData;
