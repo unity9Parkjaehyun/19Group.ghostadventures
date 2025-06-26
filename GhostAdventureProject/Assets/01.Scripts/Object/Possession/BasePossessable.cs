@@ -8,18 +8,19 @@ public abstract class BasePossessable : MonoBehaviour
     public GameObject interactionInfo;
     [SerializeField] protected bool isPossessed = false;
 
+    public bool IsPossessedState => isPossessed;
     protected virtual void Update()
     {
         if (!isPossessed)
             return;
-        
-        if(Input.GetKeyDown(KeyCode.E))
+
+        if (Input.GetKeyDown(KeyCode.E))
             Unpossess();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
             interactionInfo.SetActive(true);
     }
 

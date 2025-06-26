@@ -44,7 +44,7 @@ public class NPC1Movement : MonoBehaviour
 
     void Update()
     {
-        if (possessable != null && possessable.IsPossessed)
+        if (possessable != null && possessable.IsPossessedState)
         {
             // 플레이어 입력으로 조작 (1.5배 빠르게) - WASD로 상하좌우
             float h = Input.GetAxis("Horizontal"); // A, D
