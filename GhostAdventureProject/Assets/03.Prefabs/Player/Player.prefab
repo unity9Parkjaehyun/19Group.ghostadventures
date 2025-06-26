@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  currentTarget: {fileID: 0}
 --- !u!95 &4615344326870847654
 Animator:
   serializedVersion: 5
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3339839161576889418}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2192d8f1b1da3c34ea637aa11ab4800b, type: 3}
   m_Name: 
@@ -139,6 +140,8 @@ MonoBehaviour:
   scanPanel: {fileID: 0}
   scanCircleUI: {fileID: 0}
   playerTransform: {fileID: 574512815190063881}
+  currentScanObject: {fileID: 0}
+  currentMemoryFragment: {fileID: 0}
 --- !u!50 &5344915649848432884
 Rigidbody2D:
   serializedVersion: 4

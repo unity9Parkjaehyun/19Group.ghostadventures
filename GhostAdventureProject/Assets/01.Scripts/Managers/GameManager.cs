@@ -8,6 +8,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Managers")]
     // [SerializeField] private GameObject fakeEndingManager;
     // [SerializeField] private GameObject uiManager;
+    [SerializeField] private GameObject PossessionStateManager;
 
     public GameObject playerPrefab;
 
@@ -16,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        SpawnPlayer();
+        //SpawnPlayer();
     }
 
     public void SpawnPlayer()
@@ -41,6 +42,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log($"씬 로드됨: {scene.name}");
         //EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
         //EnsureManagerExists<UIManager>(uiManager);
+        EnsureManagerExists<PossessionStateManager>(PossessionStateManager);
 
         // 다른 매니저들도 같은 방식으로
         // 추후 스테이지 초기화, UI 초기화 등 여기에 추가

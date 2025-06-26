@@ -6,9 +6,9 @@ using UnityEngine;
 public abstract class BasePossessable : MonoBehaviour
 {
     public GameObject interactionInfo;
-    protected bool isPossessed = false;
+    [SerializeField] protected bool isPossessed = false;
 
-    void Update()
+    protected virtual void Update()
     {
         if (!isPossessed)
             return;
@@ -17,28 +17,16 @@ public abstract class BasePossessable : MonoBehaviour
             Unpossess();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log($"트리거 충돌: {collision.name}");
-        var player = collision.GetComponent<PlayerController>();
-        if (player != null)
-        {
-            Debug.Log("플레이어 진입 감지됨");
-            PossessionSystem.Instance.SetInteractTarget(GetComponent<BasePossessable>());
-        }
-        // 상호작용키 메시지 ON
-        interactionInfo.SetActive(true);
+        if(other.CompareTag("Player"))
+            interactionInfo.SetActive(true);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
-        var player = collision.GetComponent<PlayerController>();
-        if (player != null)
-        {
-            PossessionSystem.Instance.ClearInteractionTarget(GetComponent<BasePossessable>());
-        }
-        // 상호작용키 메시지 OFF
-        interactionInfo.SetActive(false);
+        if (other.CompareTag("Player"))
+            interactionInfo.SetActive(false);
     }
 
     public void OnTryPossess()
@@ -56,7 +44,7 @@ public abstract class BasePossessable : MonoBehaviour
     {
         Debug.Log("빙의 해제");
         isPossessed = false;
-        //PossessionStateManager.Instance.UnPossess();
+        PossessionStateManager.Instance.StartUnpossessTransition();
     }
 
 

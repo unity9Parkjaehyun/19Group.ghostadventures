@@ -4,11 +4,36 @@ using UnityEngine;
 
 public class PossessionSystem : Singleton<PossessionSystem>
 {
-    private PlayerController Player => GameManager.Instance.PlayerController;
+    //private PlayerController Player => GameManager.Instance.PlayerController;
+    private PlayerController Player;
     private BasePossessable currentTarget;
 
     public bool isLocked { get; private set; } = false;
 
+    private void Start()
+    {
+        // 게임매니저 이어지는지 확인
+        Player = FindObjectOfType<PlayerController>();
+        currentTarget = Player.currentTarget;
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log($"트리거 충돌: {other.name}");
+        var possessionObject = other.GetComponent<BasePossessable>();
+        if (possessionObject != null)
+        {
+            SetInteractTarget(possessionObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        var possessionObject = other.GetComponent<BasePossessable>();
+        if (possessionObject != null)
+        {
+            ClearInteractionTarget(possessionObject);
+        }
+    }
     public bool TryPossess(BasePossessable target)
     {
         if (!SoulEnergySystem.Instance.HasEnoughEnergy(3))
@@ -21,15 +46,21 @@ public class PossessionSystem : Singleton<PossessionSystem>
         return true;
     }
 
-    public void SetInteractTarget(BasePossessable target) // 플레이어가 대상 가까이 갈때마다 트리거에서 호출 추천
+    public void SetInteractTarget(BasePossessable target)
     {
         currentTarget = target;
+        if (Player != null)
+            Player.currentTarget = target;
     }
 
     public void ClearInteractionTarget(BasePossessable target)
     {
-        if (currentTarget == null)
+        if (currentTarget == target)
+        {
             currentTarget = null;
+            if (Player != null)
+                Player.currentTarget = null;
+        }
     }
 
     public void PlayPossessionInAnimation() // 빙의 시작 애니메이션

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PossessionStateManager : Singleton<PossessionStateManager>
 {
+    private PlayerController playerController;
     public enum State { Ghost, Possessing }
     public State currentState { get; private set; } = State.Ghost;
 
@@ -18,6 +19,10 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
 
     public bool IsPossessing() => currentState == State.Possessing;
 
+    private void Start()
+    {
+        playerController = FindObjectOfType<PlayerController>();
+    }
     public void StartPossessionTransition(BasePossessable target) // 빙의 전환 실행 ( 빙의 애니메이션도 함께 )
     {
         possessedTarget = target;
@@ -26,7 +31,8 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
 
     public void PossessionInAnimationComplete() // 빙의 애니메이션 종료 후 빙의 전환 완료 처리
     {
-        GameManager.Instance.Player.SetActive(false);
+        // 게임매니저 연결 수정
+        playerController.gameObject.SetActive(false);
         //possessedTarget.gameObject.SetActive(true);
         /// 추가적인 연출이나 효과
         /// 빙의오브젝트 강조효과, 사운드 등
@@ -37,9 +43,9 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
 
     public void StartUnpossessTransition() // 빙의 해체 요청 ( 위치 이동 , 활성화, 빙의 해제 애니메이션 실행 )
     {
-        possessedTarget.gameObject.SetActive(false);
-        PlayerTransform.position = possessedTarget.transform.position + spawnOffset;
-        Player.SetActive(true);
+        // 게임매니저 연결 후 수정
+        playerController.transform.position = possessedTarget.transform.position + spawnOffset;
+        playerController.gameObject.SetActive(true);
         PossessionSystem.Instance.StartPossessionOutSequence();
     }
     

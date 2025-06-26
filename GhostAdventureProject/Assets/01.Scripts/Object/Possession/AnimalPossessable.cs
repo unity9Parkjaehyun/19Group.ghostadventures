@@ -6,6 +6,15 @@ using UnityEngine;
 public class AnimalPossessable : BasePossessable
 {
     [SerializeField] private float moveSpeed = 3f;
+    protected override void Update()
+    {
+        base.Update();
+
+        if (!isPossessed)
+            return;
+
+        Move();
+    }
 
     void Move()
     {
@@ -14,12 +23,5 @@ public class AnimalPossessable : BasePossessable
         Vector3 move = new Vector3(h, v, 0);
         transform.position += move * moveSpeed * Time.deltaTime;
     }
-
-    void Update()
-    {
-        if (!isPossessed)
-            return;
-
-        Move();
-    }
+    
 }
