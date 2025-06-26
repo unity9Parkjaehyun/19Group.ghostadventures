@@ -819,7 +819,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1005574864}
+      - m_Target: {fileID: 1169638063}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
@@ -8148,7 +8148,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1005574864}
+      - m_Target: {fileID: 1169638063}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: PrevPage
         m_Mode: 1
