@@ -60,7 +60,7 @@ public abstract class BasePossessable : MonoBehaviour
     {
         Debug.Log("QTE 실패 - 빙의 취소");
         isPossessed = false;
-        Unpossess();
+        //Unpossess();
     }
 
     public virtual void IsPossessed(bool isPossessed)
