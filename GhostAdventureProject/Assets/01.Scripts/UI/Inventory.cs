@@ -10,12 +10,11 @@ public class Inventory : Singleton<Inventory>
     // <완료>
     // 위치 - 화면 하단 좌측
     // 단서 습득시 인벤토리에 저장됨
-
     // 인벤토리에 저장된 단서 UI에 표시
-    // 인벤토리 키를 누르면 단서를 다시 볼 수 있음.
     // next, prev 버튼을 통해 인벤토리 슬롯 변경가능
+    // 인벤토리 키를 누르면 단서를 크게 볼 수 있음.
 
-
+    // <미완>
     // 위치2 - 플레이어가 잡고 편한곳으로 옮길 수 있음
     
 
@@ -27,6 +26,7 @@ public class Inventory : Singleton<Inventory>
     private int currentPage = 0;
     private int cluesPerPage = 5;
     // [SerializeField] TextMeshProUGUI currentPageText; // 현재 페이지 표시
+
 
     public void AddClue(ClueData clue)
     {
@@ -81,6 +81,27 @@ public class Inventory : Singleton<Inventory>
     {
         currentPage = 0;
         RefreshUI();
+    }
+
+    private void Update()
+    {
+        for (int i = 1; i <= 5; i++)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0 + i))
+            {
+                int slotIndex = i - 1;
+                int clueIndex = currentPage * cluesPerPage + slotIndex;
+
+                if (InventoryExpandViewer.Instance.IsShowing())
+                {
+                    InventoryExpandViewer.Instance.HideClue();
+                }
+                else if (clueIndex < collectedClues.Count)
+                {
+                    InventoryExpandViewer.Instance.ShowClue(collectedClues[clueIndex]);
+                }
+            }
+        }
     }
 }
 
