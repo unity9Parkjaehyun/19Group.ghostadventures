@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1169638063}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: NextPage
         m_Mode: 1
@@ -1247,14 +1247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46ed101939f3f144c873e3bd4c80e98a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needle: {fileID: 1120672434}
-  rotateSpeed: 90
-  inputKey: 32
-  successArc: {fileID: 135646689}
-  minAngle: 120
-  maxAngle: 150
-  currentAngle: 0
-  isRunning: 0
 --- !u!224 &449930189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8574,7 +8566,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1169638063}
         m_TargetAssemblyTypeName: Inventory, Assembly-CSharp
         m_MethodName: PrevPage
         m_Mode: 1
