@@ -144,7 +144,7 @@ public class MemoryFragment : MonoBehaviour
                 break;
 
             case MemoryData.MemoryType.Fake:
-                FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
+               // FakeEndingManager.Instance.CollectFakeMemory(data.memoryID);
                 break;
         }
     }
