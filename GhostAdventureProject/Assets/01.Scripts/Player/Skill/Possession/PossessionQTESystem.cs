@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class PossessionQTESystem : Singleton<PossessionQTESystem>
 {
-    private QTEUI testQTEUI;
+    [SerializeField] private QTEUI QTEUI;
     private BasePossessable currentTarget;
+    public bool isRunning { get; private set; } = false;
 
+    private void Start()
+    {
+        QTEUI.gameObject.SetActive(false);
+    }
     public void StartQTE(BasePossessable target)
     {
         currentTarget = target;
+        isRunning = true;
         Debug.Log("Starting QTE");
-        testQTEUI.ShowQTEUI();
+        QTEUI.ShowQTEUI();
     }
 
     public void HandleQTEResult(bool success)
     {
+        isRunning = false;
         if (success)
         {
             Debug.Log("QTE succeeded");

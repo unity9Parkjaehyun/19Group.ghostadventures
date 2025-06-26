@@ -921,7 +921,7 @@ GameObject:
   - component: {fileID: 1979636056}
   - component: {fileID: 1979636058}
   m_Layer: 0
-  m_Name: TpyerManager
+  m_Name: TyperManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -939,19 +939,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 452c76222b0c1af408febedb5f7950ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timelineControl: {fileID: 0}
+  timelineControl: {fileID: 1296952562}
   dialoguePanel: {fileID: 427254618}
   dialogueText: {fileID: 475575893}
   typingSpeed: 0.05
-  dialogues:
-  - " \"\uC774\uAC74... \uBB50\uC9C0?\""
-  - "\"\uB0AF\uC120 \uD48D\uACBD\uC778\uB370... \uC774\uC0C1\uD558\uAC8C \uC775\uC219\uD574.\""
-  - "\"\uD587\uC0B4\uC774 \uB530\uB73B\uD558\uB2E4...\""
-  - "\"\uC800\uC0AC\uB78C\uB4E4\uC740 \uAC00\uC871\uC778\uAC78\uAE4C?\""
-  - " \"\uBAA8\uB450... \uD589\uBCF5\uD574 \uBCF4\uC778\uB2E4.\""
-  - "\"\uC800 \uB0A8\uC790\uC544\uC774... \uC5B4\uB514\uC11C \uBCF8 \uAC70 \uAC19\uB2E4.\""
-  - "\"\uC774\uAC74 \uB204\uAD6C\uC758 \uAE30\uC5B5\uC778\uAC78\uAE4C..?\""
-  - "\"\uC73C\uC73D! \uBA38\uB9AC\uAC00..!!\""
+  allDialogueSets:
+  - setName: "\uB300\uC0AC\uCD9C\uB825"
+    dialogues:
+    - "\"\uD587\uC0B4\uC774 \uB530\uB4EF\uD558\uB2E4...\""
+    - "\"\uC800\uC0AC\uB78C\uB4E4\uC740 \uAC00\uC871\uC778\uAC78\uAE4C?\""
+    - "\"\uBAA8\uB450.. \uD589\uBCF5\uD574 \uBCF4\uC778\uB2E4..\""
+    - "\"\uC800 \uB0A8\uC790\uC544\uC774 \uC5B4\uB514\uC11C \uBCF8 \uAC70 \uAC19\uB2E4.\""
+    - "\"\uC774\uAC74 \uB204\uAD6C\uC758 \uAE30\uC5B5\uC778\uAC78\uAE4C?\""
+  - setName: "\uB450\uBC88\uC9F8 \uB300\uC0AC"
+    dialogues:
+    - "\"\uC73C\uC73D! \uBA38\uB9AC\uAC00...!\""
 --- !u!4 &1979636057
 Transform:
   m_ObjectHideFlags: 0
@@ -981,10 +983,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: 8d95f9efa7d918a4ca5e55b37c7eb70f, type: 2}
+    - {fileID: 11400000, guid: 70a8354b2bbeee7488faa71a96701892, type: 2}
+    - {fileID: 11400000, guid: 200cd5c0a4c5bbf4896c3e349b8d6bd0, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
+        - m_Target: {fileID: 1979636056}
+          m_TargetAssemblyTypeName: TypewriterDialogue, Assembly-CSharp
+          m_MethodName: StartDialogueByIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
         - m_Target: {fileID: 1296952562}
           m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
           m_MethodName: PauseTimeline
@@ -997,9 +1012,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
         - m_Target: {fileID: 1979636056}
           m_TargetAssemblyTypeName: TypewriterDialogue, Assembly-CSharp
-          m_MethodName: StartDialogue
+          m_MethodName: StartShakeDialogueByIndex
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 1
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1296952562}
+          m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
+          m_MethodName: PauseTimeline
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

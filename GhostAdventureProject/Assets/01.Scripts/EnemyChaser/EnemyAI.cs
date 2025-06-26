@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour
 {
     [Header("기본 설정")]
     public Transform Player;
+        //=> GameManager.Instance.Player.transform;
     public float detectionRange = 5f;
     public float moveSpeed = 2f;
 

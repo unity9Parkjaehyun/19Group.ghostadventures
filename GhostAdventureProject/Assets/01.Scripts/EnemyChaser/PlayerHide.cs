@@ -2,7 +2,7 @@
 
 public class PlayerHide : MonoBehaviour
 {
-    public KeyCode hideKey = KeyCode.E;
+    private KeyCode hideKey = KeyCode.F;
 
 
     private bool isHiding = false;

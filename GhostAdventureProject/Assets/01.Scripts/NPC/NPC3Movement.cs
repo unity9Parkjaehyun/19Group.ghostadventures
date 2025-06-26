@@ -55,7 +55,7 @@ public class NPC3Movement : MonoBehaviour
 
     void Update()
     {
-        if (possessable != null && possessable.IsPossessed)
+        if (possessable != null && possessable.IsPossessedState)
         {
             HandlePlayerControl();
         }
