@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +6,22 @@ using UnityEngine;
 public class AnimalPossessable : BasePossessable
 {
     [SerializeField] private float moveSpeed = 3f;
+    protected override void Update()
+    {
+        base.Update();
 
-    protected virtual void HandleMovement()
+        if (!isPossessed)
+            return;
+
+        Move();
+    }
+
+    void Move()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(h, v, 0);
         transform.position += move * moveSpeed * Time.deltaTime;
     }
-
-    void FixedUpdate()
-    {
-        if (!isPossessed)
-            return;
-
-        HandleMovement();
-    }
+    
 }
