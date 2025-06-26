@@ -1141,6 +1141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionInfo: {fileID: 1901068132}
+  isPossessed: 0
   moveSpeed: 3
 --- !u!4 &1261077286
 Transform:
@@ -2344,8 +2345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4c1c8ce8b692fe47877bc0adb4e41a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  possessionSystem: {fileID: 2794149304111657944, guid: 85a2198da96d5084680951a4ac81d833, type: 3}
-  possessionQTESystem: {fileID: 9027407715029434643, guid: 2667378d606b5d0439f434e503330d64, type: 3}
+  PossessionStateManager: {fileID: 878532559831702910, guid: ae810f2a3c01bd5499886b12da4f45ea, type: 3}
   playerPrefab: {fileID: 3339839161576889418, guid: 97e1ce988bb7d664eb3457da7c78aa64, type: 3}
 --- !u!1 &7228593319965703216
 GameObject:
