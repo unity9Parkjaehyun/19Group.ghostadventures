@@ -269,7 +269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 888658539}
   detectionRange: 5
-  moveSpeed: 2.5
+  moveSpeed: 4
   patrolDistance: 1.5
   patrolWaitTime: 1
   searchWaitTime: 2
