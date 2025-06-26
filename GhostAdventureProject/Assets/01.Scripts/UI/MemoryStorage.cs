@@ -7,6 +7,7 @@ public class MemoryStorage : MonoBehaviour
 {
     [SerializeField] private GameObject memeoryPanel; // 기억 저장소 UI
     [SerializeField] private Button memoryStorageButton; // 기억 저장소 버튼
+    MemoryData memoryData;
 
 
     // 기억저장소 버튼을 눌렀을 때
@@ -16,7 +17,7 @@ public class MemoryStorage : MonoBehaviour
     // x 클릭시 다시 기억이 나열되어 있는 곳으로 돌아옴.
     // 또 x 클릭시 Panel SetActive(false)
 
-    // 부정/긍정/가짜 기억 구분은 추후에 색으로 표시(미정)
+    // 부정/긍정/가짜 기억 구분은 색으로 표시(미정)
     // 수집 현황 표시 (ex 1/30)
 
 
