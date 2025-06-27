@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInteractionManager : Singleton<PlayerInteractionManager>
+public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
 {
     private List<GameObject> nearbyInteractables = new();
     private GameObject currentClosest;
-
-    [SerializeField] private Transform playerTransform;
 
     private void Update()
     {
@@ -23,41 +21,43 @@ public class PlayerInteractionManager : Singleton<PlayerInteractionManager>
         foreach (var obj in nearbyInteractables)
         {
             if (obj == null) continue;
-            float dist = Vector3.Distance(playerTransform.position, obj.transform.position);
+            float dist = Vector3.Distance(GameManager.Instance.Player.transform.position, obj.transform.position);
             if (dist < closestDist)
             {
                 closestDist = dist;
                 closest = obj;
             }
         }
-
+        Debug.Log($"가장 가까운 오브젝트: {closest?.name ?? "없음"} (거리: {closestDist})");
         UpdateClosest(closest);
     }
 
     private void UpdateClosest(GameObject newClosest)
     {
-        if (currentClosest == newClosest) return;
-
-        // 이전 상호작용 대상 숨기기
-        if (currentClosest != null)
+        if (currentClosest != null && currentClosest != newClosest)
         {
-            currentClosest.GetComponent<BaseInteractable>()?.SetInteractionPopup(false);
+            var prev = currentClosest.GetComponent<BaseInteractable>();
+            if (prev != null) prev.SetInteractionPopup(false);
         }
 
         currentClosest = newClosest;
 
-        // 새 상호작용 대상 표시
+        // 상호작용 가능키 표시
         if (currentClosest != null)
         {
-            currentClosest.GetComponent<BaseInteractable>()?.SetInteractionPopup(true);
+            var next = currentClosest.GetComponent<BaseInteractable>();
+            if (next != null) next.SetInteractionPopup(true);
+            else Debug.LogWarning($"[{currentClosest.name}]에 BaseInteractable이 없음!");
         }
     }
 
     // 플레이어 근처에 있는 오브젝트들
     public void AddInteractable(GameObject obj)
     {
-        if (!nearbyInteractables.Contains(obj))
-            nearbyInteractables.Add(obj);
+        if (obj == null || !obj.TryGetComponent<BaseInteractable>(out _))
+            return;
+
+        nearbyInteractables.Add(obj);
     }
 
     // 플레이어 근처를 벗어난 오브젝트들

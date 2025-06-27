@@ -19,7 +19,7 @@ public class NPC1Movement : MonoBehaviour
     private int dir = 1;
     private bool isWaiting = false;
     private float waitTimer = 0f;
-    private BasePossessable possessable;
+    private BasePossible possessable;
 
     // Jump variables
     private bool isJumping = false;
@@ -34,7 +34,7 @@ public class NPC1Movement : MonoBehaviour
     void Start()
     {
         startPoint = transform.position;
-        possessable = GetComponent<BasePossessable>();
+        possessable = GetComponent<BasePossible>();
         jumpStartY = transform.position.y;
 
         // Animator가 할당되지 않았으면 자동으로 찾기

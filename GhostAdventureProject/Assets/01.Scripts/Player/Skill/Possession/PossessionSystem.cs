@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class PossessionSystem : Singleton<PossessionSystem>
 {
-    //private PlayerController Player => GameManager.Instance.PlayerController;
-    private PlayerController Player;
-    private BasePossessable currentTarget;
+    private PlayerController Player => GameManager.Instance.PlayerController;
 
-    public bool canMove { get; set; } = false;
+    [SerializeField] private BasePossible currentTarget;
+    public BasePossible CurrentTarget => currentTarget;
+
+    public bool canMove { get; set; } = true;
 
     private void Start()
     {
-        // 게임매니저 이어지는지 확인
-        Player = FindObjectOfType<PlayerController>();
         currentTarget = Player.currentTarget;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"트리거 충돌: {other.name}");
-        var possessionObject = other.GetComponent<BasePossessable>();
+        var possessionObject = other.GetComponent<BasePossible>();
         if (possessionObject != null)
         {
             SetInteractTarget(possessionObject);
@@ -29,7 +28,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        var possessionObject = other.GetComponent<BasePossessable>();
+        var possessionObject = other.GetComponent<BasePossible>();
         if (possessionObject != null)
         {
             ClearInteractionTarget(possessionObject);
@@ -52,14 +51,14 @@ public class PossessionSystem : Singleton<PossessionSystem>
         PossessionQTESystem.Instance.StartQTE();
     }
 
-    public void SetInteractTarget(BasePossessable target)
+    public void SetInteractTarget(BasePossible target)
     {
         currentTarget = target;
         if (Player != null)
             Player.currentTarget = currentTarget;
     }
 
-    public void ClearInteractionTarget(BasePossessable target)
+    public void ClearInteractionTarget(BasePossible target)
     {
         if (currentTarget == target)
         {

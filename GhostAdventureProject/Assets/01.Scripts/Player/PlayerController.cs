@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] public BasePossessable currentTarget;
+    [SerializeField] public BasePossible currentTarget;
     
     public Animator animator { get; private set; }
     
@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (PossessionSystem.Instance.canMove || PossessionQTESystem.Instance.isRunning)
+        if (!PossessionSystem.Instance.canMove || PossessionQTESystem.Instance.isRunning)
             return;
 
         HandleMovement();

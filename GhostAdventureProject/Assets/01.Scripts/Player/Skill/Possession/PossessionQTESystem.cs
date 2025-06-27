@@ -6,7 +6,7 @@ public class PossessionQTESystem : Singleton<PossessionQTESystem>
 {
     [SerializeField] private QTEUI QTEUI;
     private PlayerController Player; // 게임매니저 연결 후 수정
-    private BasePossessable currentTarget;
+    private BasePossible currentTarget;
     public bool isRunning { get; private set; } = false;
 
     private void Start()

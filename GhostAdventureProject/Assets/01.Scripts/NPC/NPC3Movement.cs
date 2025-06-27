@@ -20,7 +20,7 @@ public class NPC3Movement : MonoBehaviour
     [Header("Animation")]
     public Animator animator;
 
-    private BasePossessable possessable;
+    private BasePossible possessable;
     private Vector3[] waypoints;
     private float[] waitTimes;
 
@@ -31,7 +31,7 @@ public class NPC3Movement : MonoBehaviour
 
     void Start()
     {
-        possessable = GetComponent<BasePossessable>();
+        possessable = GetComponent<BasePossible>();
         if (animator == null)
             animator = GetComponent<Animator>();
 

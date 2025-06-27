@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BasePossessable : MonoBehaviour
+public abstract class BasePossible : MonoBehaviour
 {
     [SerializeField] protected bool isPossessed = false;
 
@@ -19,16 +19,16 @@ public abstract class BasePossessable : MonoBehaviour
             Unpossess();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            PlayerInteractionManager.Instance.AddInteractable(gameObject);
+            PlayerInteractSystem.Instance.AddInteractable(gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            PlayerInteractionManager.Instance.RemoveInteractable(gameObject);
+            PlayerInteractSystem.Instance.RemoveInteractable(gameObject);
     }
 
     public void Unpossess()

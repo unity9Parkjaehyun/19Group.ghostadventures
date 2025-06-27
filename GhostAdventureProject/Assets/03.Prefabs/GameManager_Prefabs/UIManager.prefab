@@ -527,7 +527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d72355b66164e44b3d564e6410252c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  QTEUI: {fileID: 0}
+  QTEUI: {fileID: 892168955229206117}
 --- !u!1 &1151312865891431735
 GameObject:
   m_ObjectHideFlags: 0

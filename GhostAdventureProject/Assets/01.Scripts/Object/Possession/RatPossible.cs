@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatPossessable : AnimalPossessable
+public class RatPossible : AnimalPossible
 {
     protected override void Update()
     {

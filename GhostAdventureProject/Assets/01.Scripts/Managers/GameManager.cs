@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [Header("Managers")]
-    // [SerializeField] private GameObject fakeEndingManager;
-    // [SerializeField] private GameObject uiManager;
+    [SerializeField] private GameObject fakeEndingManager;
+    [SerializeField] private GameObject uiManager;
     [SerializeField] private GameObject PossessionStateManager;
 
     public GameObject playerPrefab;
@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        //SpawnPlayer();
+        SpawnPlayer();
     }
 
     public void SpawnPlayer()
@@ -40,8 +40,8 @@ public class GameManager : Singleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         Debug.Log($"씬 로드됨: {scene.name}");
-        //EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
-        //EnsureManagerExists<UIManager>(uiManager);
+        EnsureManagerExists<FakeEndingManager>(fakeEndingManager);
+        EnsureManagerExists<UIManager>(uiManager);
         EnsureManagerExists<PossessionStateManager>(PossessionStateManager);
 
         // 다른 매니저들도 같은 방식으로
