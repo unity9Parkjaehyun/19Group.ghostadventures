@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Prompt : Singleton<Prompt>
+public class Prompt : MonoBehaviour
 {
     private GameObject PromptPanel; // 프롬프트 패널 이미지
     private TMP_Text PromptText; // 프롬프트 텍스트

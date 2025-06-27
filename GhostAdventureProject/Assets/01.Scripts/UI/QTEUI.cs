@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QTEUI : Singleton<QTEUI>
+public class QTEUI : MonoBehaviour
 {
     public RectTransform needle;
     public float rotateSpeed = 90f;

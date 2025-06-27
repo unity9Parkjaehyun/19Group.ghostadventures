@@ -28,8 +28,10 @@ public class MemoryScan : MonoBehaviour
     {
         mainCamera = Camera.main;
         // 초기 UI 상태 설정
-        scanPanel?.SetActive(false);
+        scanPanel = UIManager.Instance.scanUI;
+        scanCircleUI = UIManager.Instance.scanUI.GetComponentInChildren<Image>();
         scanCircleUI?.gameObject.SetActive(false);
+
     }
 
     void Update()
