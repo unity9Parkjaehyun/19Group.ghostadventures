@@ -39,9 +39,12 @@ public class CutsceneManager : MonoBehaviour
         }
 
         director.stopped += OnPlayableDirectorStopped;
+        
         director.Play();
 
         yield return new WaitUntil(() => isDone);
+
+        fadePanel.SetActive(false);
     }
 
     void OnSceneUnloaded(Scene scene)
