@@ -13,7 +13,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private SoulGauge soulGauge; // 영혼에너지 
     [SerializeField] private Prompt prompt; // 프롬프트
     [SerializeField] private QTEUI qte1;// QTE
-    [SerializeField] private GameObject scanUI;
+    public GameObject scanUI; // 스캔UI
     [SerializeField] private MemoryStorage memoryStorage;// 기억저장소
     [SerializeField] private Inventory_Player inventory_player; // 인벤토리-플레이어
     [SerializeField] private InventoryExpandViewer inventoryExpandViewer; // 인벤토리 확대뷰어
