@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +12,7 @@ public class SoulEnergySystem : Singleton<SoulEnergySystem>
     {
         currentEnergy = maxEnergy;
     }
-    
+
     public bool HasEnoughEnergy(int amount) => currentEnergy >= amount;
 
     public void Consume(int amount) // 에너지 소모
