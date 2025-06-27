@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &167429009
 RectTransform:
   m_ObjectHideFlags: 0
@@ -313,7 +313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &185962820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &302555377
 Animator:
   serializedVersion: 5
@@ -487,7 +487,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 574351894}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &574351896
 Camera:
   m_ObjectHideFlags: 0
@@ -729,7 +729,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1244784121}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 44c0da48ac09a5a478433c3835a1a6fa, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 31e293f1e8e251c4581326ca496ee3cd, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -759,16 +759,6 @@ PlayableDirector:
     value: {fileID: 302555377}
   - key: {fileID: -3144522958948059261, guid: 31e293f1e8e251c4581326ca496ee3cd, type: 2}
     value: {fileID: 1547084506}
-  - key: {fileID: 2096478178295301033, guid: 44c0da48ac09a5a478433c3835a1a6fa, type: 2}
-    value: {fileID: 1547084506}
-  - key: {fileID: -3424470180976945982, guid: 44c0da48ac09a5a478433c3835a1a6fa, type: 2}
-    value: {fileID: 167429008}
-  - key: {fileID: -1972422944407957470, guid: 44c0da48ac09a5a478433c3835a1a6fa, type: 2}
-    value: {fileID: 167429010}
-  - key: {fileID: 3941595241101254555, guid: 44c0da48ac09a5a478433c3835a1a6fa, type: 2}
-    value: {fileID: 1846623319}
-  - key: {fileID: -2448830686022925822, guid: 44c0da48ac09a5a478433c3835a1a6fa, type: 2}
-    value: {fileID: 1846623320}
   m_ExposedReferences:
     m_References: []
 --- !u!4 &1244784124
@@ -979,17 +969,16 @@ MonoBehaviour:
   allDialogueSets:
   - setName: "\uCCAB\uBC88\uC9F8 \uB300\uC0AC"
     dialogues:
-    - "(\uB204\uAD70\uAC00 \uC11C\uC788\uB2E4...)"
-    - "(\uB098\uB97C \uCCD0\uB2E4\uBCF4\uACE0 \uC788\uB294\uAC74\uAC00?)"
-    - ........
+    - "(\uC544\uBB34\uAC83\uB3C4 \uBCF4\uC774\uC9C8 \uC54A\uB294\uB2E4..)"
+    - "\"\uB3C4\uB300\uCCB4 \uC774\uAC8C \uBB50\uC9C0?\""
+    - "\"\uC5EC\uAE34 \uC5B4\uB514\uC57C?\""
   - setName: "\uB450\uBC88\uC9F8 \uB300\uC0AC \uC2DC\uC57C \uBC1D\uC544\uC9D0"
     dialogues:
-    - "(\uC774\uB7F0...! \uC544\uBB34\uB9D0\uB3C4 \uBABB\uD558\uACA0\uC5B4!)"
+    - "\"...? \uBB54\uAC00 \uC788\uB2E4.\""
   - setName: "\uC138\uBC88\uC9F8 \uB300\uC0AC"
     dialogues:
-    - "(\uC7A0\uAE50..!!! \uC5B4\uB514\uAC00\uB294\uAC70\uC57C!!)"
-    - "(\uB3C4\uB300\uCCB4 \uB2F9\uC2E0\uC740 \uB204\uAD6C\uC57C?)"
-    - "(\uAC00\uC9C0\uB9C8!!!)"
+    - "(\uC11C\uC11C\uD788 \uC2DC\uC57C\uAC00 \uBC1D\uC544\uC9C4\uB2E4..)"
+    - '"..!!"'
   - setName: "4\uBC88\uC9F8 \uB300\uC0AC"
     dialogues:
     - "\"\uC73C\uC544\uC544\uC544\uC545!!!!!\""
@@ -1036,13 +1025,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 443930d84452e864e82ad18b83631be4, type: 2}
     - {fileID: 11400000, guid: ae203659575554d4389256e12b00de64, type: 2}
     - {fileID: 11400000, guid: e71e8eb023d3dd3459007b3da76b71e6, type: 2}
-    - {fileID: 11400000, guid: 0ced8cc33837e914c8482795d42315fa, type: 2}
-    - {fileID: 11400000, guid: 297d6f3f437ee844a96d0c2233711b7f, type: 2}
-    - {fileID: 11400000, guid: 9d416f0d0c7dc4d4c9b90ee5e357bcce, type: 2}
-    - {fileID: 11400000, guid: c3d6f97378b85854695cfa61dbd173df, type: 2}
-    - {fileID: 11400000, guid: ddc55a53f8ab58b47971801e73e7c76b, type: 2}
-    - {fileID: 11400000, guid: 5074388a3c8c12e4e8be5d03627224d5, type: 2}
-    - {fileID: 11400000, guid: 1abe8c3249c7e094e83b19fe314d107c, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -1174,164 +1156,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1547084504}
-          m_TargetAssemblyTypeName: TypewriterDialogue, Assembly-CSharp
-          m_MethodName: StartDialogueByIndex
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1244784123}
-          m_TargetAssemblyTypeName: UnityEngine.Playables.PlayableDirector, UnityEngine
-          m_MethodName: Pause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1861133697}
-          m_TargetAssemblyTypeName: GifImporter.GifPlayer, GifForUnity
-          m_MethodName: Pause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1547084504}
-          m_TargetAssemblyTypeName: TypewriterDialogue, Assembly-CSharp
-          m_MethodName: StartShakeDialogueByIndex
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 1
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 43414520}
-          m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
-          m_MethodName: PauseTimeline
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1861133697}
-          m_TargetAssemblyTypeName: GifImporter.GifPlayer, GifForUnity
-          m_MethodName: Resume
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1547084504}
-          m_TargetAssemblyTypeName: TypewriterDialogue, Assembly-CSharp
-          m_MethodName: StartShakeDialogueByIndex
-          m_Mode: 3
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 2
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 43414520}
-          m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
-          m_MethodName: PauseTimeline
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1861133697}
-          m_TargetAssemblyTypeName: GifImporter.GifPlayer, GifForUnity
-          m_MethodName: Pause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1861133697}
-          m_TargetAssemblyTypeName: GifImporter.GifPlayer, GifForUnity
-          m_MethodName: Pause
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1861133697}
-          m_TargetAssemblyTypeName: GifImporter.GifPlayer, GifForUnity
-          m_MethodName: Resume
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 43414520}
-          m_TargetAssemblyTypeName: TimelineControl, Assembly-CSharp
-          m_MethodName: CloseScene
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1846623319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1350,7 +1174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1846623320
 Animator:
   serializedVersion: 5
@@ -1441,7 +1265,6 @@ GameObject:
   - component: {fileID: 1861133695}
   - component: {fileID: 1861133694}
   - component: {fileID: 1861133696}
-  - component: {fileID: 1861133697}
   m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
@@ -1463,10 +1286,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1094352361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1861133694
 MonoBehaviour:
@@ -1488,7 +1311,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4c386182a7f150746bcd9990b78f1bbf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05244cef9dd54fb41b867467d0c7a9be, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1527,19 +1350,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1861133697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1861133692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c3f106a78e1aa142b294d8d1a41114b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Gif: {fileID: 11400000, guid: 33a7e00e528145a419053027903b2d78, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
