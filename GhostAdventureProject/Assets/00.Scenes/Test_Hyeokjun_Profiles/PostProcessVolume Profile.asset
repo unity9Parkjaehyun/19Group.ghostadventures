@@ -62,10 +62,10 @@ MonoBehaviour:
     value: {r: 1, g: 1, b: 1, a: 1}
   hueShift:
     overrideState: 0
-    value: 0
+    value: 10
   saturation:
-    overrideState: 1
-    value: -56
+    overrideState: 0
+    value: 8
   brightness:
     overrideState: 0
     value: 0
@@ -74,10 +74,10 @@ MonoBehaviour:
     value: 0
   contrast:
     overrideState: 0
-    value: 0
+    value: 100
   mixerRedOutRedIn:
     overrideState: 0
-    value: 100
+    value: -17
   mixerRedOutGreenIn:
     overrideState: 0
     value: 0
