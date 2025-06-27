@@ -7,7 +7,6 @@ public class MemoryFragment : MonoBehaviour
 {
     public MemoryData data;
     public bool isScanned = false;
-    public GameObject interactionInfo;
 
     [Header("드랍 조각 프리팹")]
     [SerializeField] private GameObject fragmentDropPrefab;
@@ -27,14 +26,14 @@ public class MemoryFragment : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !isScanned)
-            interactionInfo.SetActive(true);
+        if (other.CompareTag("Player"))
+            PlayerInteractionManager.Instance.AddInteractable(gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            interactionInfo.SetActive(false);
+            PlayerInteractionManager.Instance.RemoveInteractable(gameObject);
     }
 
     public void IsScanned()

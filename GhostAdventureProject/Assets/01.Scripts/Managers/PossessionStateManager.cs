@@ -23,9 +23,8 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
     {
         playerController = FindObjectOfType<PlayerController>();
     }
-    public void StartPossessionTransition(BasePossessable target) // 빙의 전환 실행 ( 빙의 애니메이션도 함께 )
+    public void StartPossessionTransition() // 빙의 전환 실행 ( 빙의 애니메이션도 함께 )
     {
-        possessedTarget = target;
         PossessionSystem.Instance.PlayPossessionInAnimation();
     }
 
@@ -33,12 +32,10 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
     {
         // 게임매니저 연결 수정
         playerController.gameObject.SetActive(false);
-        //possessedTarget.gameObject.SetActive(true);
+        PossessionSystem.Instance.canMove = true;
         /// 추가적인 연출이나 효과
         /// 빙의오브젝트 강조효과, 사운드 등
         currentState = State.Possessing;
-        if (possessedTarget.TryGetComponent(out BasePossessable possessable))
-            possessable.IsPossessed(true);
     }
 
     public void StartUnpossessTransition() // 빙의 해체 요청 ( 위치 이동 , 활성화, 빙의 해제 애니메이션 실행 )
