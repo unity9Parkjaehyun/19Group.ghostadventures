@@ -20,7 +20,14 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            
+            DoShake(2f);
+        }
+    }
 
     public void DoShake( float duration)
     {
@@ -43,9 +50,9 @@ public class CameraShake : MonoBehaviour
 
     private IEnumerator StopShakeAfterTime(float duration) // duration 매개변수 추가
     {
-        yield return new WaitForSeconds(duration); // 전달받은 duration 사용
+        yield return new WaitForSecondsRealtime(duration); // 전달받은 duration 사용
 
-        if (cinemachineBasicMultiChannelPerlin != null)
+        if (cinemachineBasicMultiChannelPerlin != null) 
         {
             cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
         }
