@@ -24,7 +24,7 @@ public class MemoryFragment : MonoBehaviour
     [Header("흡수 연출 설정")]
     [SerializeField] private float absorbTime = 0.6f;
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
             PlayerInteractSystem.Instance.AddInteractable(gameObject);

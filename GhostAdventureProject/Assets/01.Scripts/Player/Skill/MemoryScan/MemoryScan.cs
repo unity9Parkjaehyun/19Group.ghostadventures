@@ -99,7 +99,7 @@ public class MemoryScan : MonoBehaviour
     private void UpdateScan()
     {
         // 키를 계속 누르고 있는지 확인
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetKey(KeyCode.E))
         {
             scanTime += Time.unscaledDeltaTime; // Time.timeScale에 영향받지 않는 시간으로 진행
             float scanProgress = Mathf.Clamp01(scanTime / scan_duration);
