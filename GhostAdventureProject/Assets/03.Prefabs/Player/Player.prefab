@@ -172,8 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxEnergy: 10
   currentEnergy: 0
-  baseRestoreInterval: 0
-  baseRestoreAmount: 0
+  baseRestoreInterval: 20
+  baseRestoreAmount: 1
   currentRestoreInterval: 0
   currentRestoreAmount: 0
 --- !u!114 &8506617089365952303
