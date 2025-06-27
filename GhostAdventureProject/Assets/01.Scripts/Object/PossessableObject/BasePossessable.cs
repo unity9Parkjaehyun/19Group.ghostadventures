@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BasePossible : MonoBehaviour
+public abstract class BasePossessable : MonoBehaviour
 {
     public bool isPossessed = false;
 

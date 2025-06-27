@@ -8,7 +8,6 @@ public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
 
     private void Update()
     {
-        Debug.Log($"현재 플레이어 근처 오브젝트 수: {nearbyInteractables.Count}");
         if (nearbyInteractables.Count == 0)
         {
             UpdateClosest(null);
@@ -29,7 +28,6 @@ public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
                 closest = obj;
             }
         }
-        Debug.Log($"가장 가까운 오브젝트: {closest?.name ?? "없음"} (거리: {closestDist})");
         UpdateClosest(closest);
     }
 
@@ -48,7 +46,7 @@ public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
         {
             var next = currentClosest.GetComponent<BaseInteractable>();
             if (next != null) next.SetInteractionPopup(true);
-            else Debug.LogWarning($"[{currentClosest.name}]에 BaseInteractable이 없음!");
+            else Debug.LogWarning($"[{currentClosest.name}]에 BaseInteractable이 없어요");
         }
     }
 

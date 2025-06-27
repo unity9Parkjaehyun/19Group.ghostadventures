@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] public BasePossible currentTarget;
+    [SerializeField] public BasePossessable currentTarget;
     
     public Animator animator { get; private set; }
     

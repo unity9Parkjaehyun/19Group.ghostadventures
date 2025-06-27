@@ -7,15 +7,15 @@ public class PossessionSystem : Singleton<PossessionSystem>
     private PlayerController Player => GameManager.Instance.PlayerController;
 
     // 디버깅용
-    [SerializeField] private BasePossible currentTarget;
-    public BasePossible CurrentTarget => currentTarget;
+    [SerializeField] private BasePossessable currentTarget;
+    public BasePossessable CurrentTarget => currentTarget;
 
     public bool canMove { get; set; } = true;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"트리거 충돌: {other.name}");
-        var possessionObject = other.GetComponent<BasePossible>();
+        var possessionObject = other.GetComponent<BasePossessable>();
         if (possessionObject != null)
         {
             SetInteractTarget(possessionObject);
@@ -24,7 +24,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        var possessionObject = other.GetComponent<BasePossible>();
+        var possessionObject = other.GetComponent<BasePossessable>();
         if (possessionObject != null)
         {
             ClearInteractionTarget(possessionObject);
@@ -47,14 +47,14 @@ public class PossessionSystem : Singleton<PossessionSystem>
         PossessionQTESystem.Instance.StartQTE();
     }
 
-    public void SetInteractTarget(BasePossible target)
+    public void SetInteractTarget(BasePossessable target)
     {
         currentTarget = target;
         if (Player != null)
             Player.currentTarget = currentTarget;
     }
 
-    public void ClearInteractionTarget(BasePossible target)
+    public void ClearInteractionTarget(BasePossessable target)
     {
         if (currentTarget == target)
         {
