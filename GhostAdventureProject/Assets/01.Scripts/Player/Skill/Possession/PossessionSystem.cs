@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class PossessionSystem : Singleton<PossessionSystem>
 {
-    //private PlayerController Player => GameManager.Instance.PlayerController;
-    private PlayerController Player;
-    private BasePossessable currentTarget;
+    private PlayerController Player => GameManager.Instance.PlayerController;
 
-    public bool isLocked { get; private set; } = false;
+    [SerializeField] private BasePossible currentTarget;
+    public BasePossible CurrentTarget => currentTarget;
+
+    public bool canMove { get; set; } = true;
 
     private void Start()
     {
-        // 게임매니저 이어지는지 확인
-        Player = FindObjectOfType<PlayerController>();
         currentTarget = Player.currentTarget;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"트리거 충돌: {other.name}");
-        var possessionObject = other.GetComponent<BasePossessable>();
+        var possessionObject = other.GetComponent<BasePossible>();
         if (possessionObject != null)
         {
             SetInteractTarget(possessionObject);
@@ -28,13 +28,13 @@ public class PossessionSystem : Singleton<PossessionSystem>
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        var possessionObject = other.GetComponent<BasePossessable>();
+        var possessionObject = other.GetComponent<BasePossible>();
         if (possessionObject != null)
         {
             ClearInteractionTarget(possessionObject);
         }
     }
-    public bool TryPossess(BasePossessable target)
+    public bool TryPossess()
     {
         if (!SoulEnergySystem.Instance.HasEnoughEnergy(3))
         {
@@ -42,18 +42,23 @@ public class PossessionSystem : Singleton<PossessionSystem>
             return false;
         }
         SoulEnergySystem.Instance.Consume(3);
-        target.RequestPossession();
+        RequestPossession();
         return true;
     }
+    public void RequestPossession()
+    {
+        Debug.Log($"{name} 빙의 시도 - QTE 호출");
+        PossessionQTESystem.Instance.StartQTE();
+    }
 
-    public void SetInteractTarget(BasePossessable target)
+    public void SetInteractTarget(BasePossible target)
     {
         currentTarget = target;
         if (Player != null)
-            Player.currentTarget = target;
+            Player.currentTarget = currentTarget;
     }
 
-    public void ClearInteractionTarget(BasePossessable target)
+    public void ClearInteractionTarget(BasePossible target)
     {
         if (currentTarget == target)
         {
@@ -65,31 +70,30 @@ public class PossessionSystem : Singleton<PossessionSystem>
 
     public void PlayPossessionInAnimation() // 빙의 시작 애니메이션
     {
-        isLocked = true;
+        Debug.Log("빙의 시작 애니메이션 재생");
+        canMove = false;
         Player.animator.SetTrigger("PossessIn");
     }
 
-    public void StartPossessionOutSequence() // 빙의 해제 애니메이션 코루틴으로
+    public void StartPossessionOutSequence() // 빙의 해제 애니메이션
     {
+        canMove = false;
         StartCoroutine(DelayedPossessionOutPlay());
     }
 
     private IEnumerator DelayedPossessionOutPlay()
     {
         yield return null; // 한 프레임 딜레이
-        isLocked = true;
         Player.animator.Play("Player_PossessionOut");
     }
 
     public void OnPossessionInAnimationComplete() // 빙의 시작 애니메이션 후 이벤트
     {
-        isLocked = false;
         PossessionStateManager.Instance.PossessionInAnimationComplete();
     }
 
     public void OnPossessionOutAnimationComplete() // 빙의 해제 애니메이션 후 이벤트
     {
-        isLocked = false;
         PossessionStateManager.Instance.PossessionOutAnimationComplete();
     }
 }

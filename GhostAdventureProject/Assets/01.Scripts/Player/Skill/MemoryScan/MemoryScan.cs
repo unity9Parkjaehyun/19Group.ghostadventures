@@ -28,14 +28,16 @@ public class MemoryScan : MonoBehaviour
     {
         mainCamera = Camera.main;
         // 초기 UI 상태 설정
-        scanPanel?.SetActive(false);
+        scanPanel = UIManager.Instance.scanUI;
+        scanCircleUI = UIManager.Instance.scanUI.GetComponentInChildren<Image>();
         scanCircleUI?.gameObject.SetActive(false);
+
     }
 
     void Update()
     {
         // 스캔 가능한 상태가 아니거나, 스캔 중이 아닐 때 입력을 받음
-        if (isNearMemory && !isScanning && Input.GetKeyDown(KeyCode.X))
+        if (isNearMemory && !isScanning && Input.GetKeyDown(KeyCode.E))
         {
             TryStartScan();
         }
@@ -97,7 +99,7 @@ public class MemoryScan : MonoBehaviour
     private void UpdateScan()
     {
         // 키를 계속 누르고 있는지 확인
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetKey(KeyCode.E))
         {
             scanTime += Time.unscaledDeltaTime; // Time.timeScale에 영향받지 않는 시간으로 진행
             float scanProgress = Mathf.Clamp01(scanTime / scan_duration);

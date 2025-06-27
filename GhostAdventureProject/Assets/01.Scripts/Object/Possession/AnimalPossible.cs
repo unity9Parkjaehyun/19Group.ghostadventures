@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalPossessable : BasePossessable
+public class AnimalPossible : BasePossible
 {
     [SerializeField] private float moveSpeed = 3f;
     protected override void Update()
     {
         base.Update();
 
-        if (!isPossessed)
+        if (!isPossessed || !PossessionSystem.Instance.canMove)
             return;
 
         Move();

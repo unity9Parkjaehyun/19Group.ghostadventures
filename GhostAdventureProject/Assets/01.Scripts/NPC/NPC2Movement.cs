@@ -14,7 +14,7 @@ public class NPC2Movement : MonoBehaviour
 
     private Vector3 targetPoint;
     private float waitTime = 0;
-    private BasePossessable possessable;
+    private BasePossible possessable;
 
     // Animation parameter names
     private const string ANIM_IS_WALKING = "IsWalking";
@@ -25,7 +25,7 @@ public class NPC2Movement : MonoBehaviour
         // 설정된 시작 위치로 이동
         transform.position = startPosition;
 
-        possessable = GetComponent<BasePossessable>();
+        possessable = GetComponent<BasePossible>();
         PickNewTarget();
 
         // Animator가 할당되지 않았으면 자동으로 찾기

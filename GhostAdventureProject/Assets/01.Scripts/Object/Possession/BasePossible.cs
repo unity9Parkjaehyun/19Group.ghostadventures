@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BasePossessable : MonoBehaviour
+public abstract class BasePossible : MonoBehaviour
 {
-    public GameObject interactionInfo;
     [SerializeField] protected bool isPossessed = false;
 
     public bool IsPossessedState => isPossessed;
+    
+
     protected virtual void Update()
     {
         if (!isPossessed)
@@ -21,24 +22,13 @@ public abstract class BasePossessable : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            interactionInfo.SetActive(true);
+            PlayerInteractSystem.Instance.AddInteractable(gameObject);
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
-            interactionInfo.SetActive(false);
-    }
-
-    public void OnTryPossess()
-    {
-        PossessionSystem.Instance.TryPossess(this);
-    }
-
-    public void RequestPossession()
-    {
-        Debug.Log($"{name} 빙의 시도 - QTE 호출");
-        PossessionQTESystem.Instance.StartQTE(this);
+            PlayerInteractSystem.Instance.RemoveInteractable(gameObject);
     }
 
     public void Unpossess()
@@ -52,20 +42,15 @@ public abstract class BasePossessable : MonoBehaviour
     public void OnQTESuccess()
     {
         Debug.Log("QTE 성공 - 빙의 완료");
+
         isPossessed = true;
-        PossessionStateManager.Instance.StartPossessionTransition(this);
+        PossessionStateManager.Instance.StartPossessionTransition();
     }
 
     public void OnQTEFailure()
     {
         Debug.Log("QTE 실패 - 빙의 취소");
         isPossessed = false;
-        //Unpossess();
-    }
-
-    public virtual void IsPossessed(bool isPossessed)
-    {
-        this.isPossessed = isPossessed;
-        /// 각 빙의오브젝트가 override해서 각자 기능 구현
+        SoulEnergySystem.Instance.Consume(1);
     }
 }

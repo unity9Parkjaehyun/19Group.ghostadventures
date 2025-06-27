@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QTEUI : Singleton<QTEUI>
+public class QTEUI : MonoBehaviour
 {
     public RectTransform needle;
     public float rotateSpeed = 90f;
@@ -27,8 +27,7 @@ public class QTEUI : Singleton<QTEUI>
     void Update()
     {
         if (!isRunning) return;
-
-        currentAngle += rotateSpeed * Time.deltaTime;
+        currentAngle += rotateSpeed * Time.unscaledDeltaTime;
 
         if (currentAngle >= 180f)
         {
