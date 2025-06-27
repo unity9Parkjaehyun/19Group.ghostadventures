@@ -5,10 +5,9 @@ using UnityEngine;
 
 public abstract class BasePossible : MonoBehaviour
 {
-    [SerializeField] protected bool isPossessed = false;
+    public bool isPossessed = false;
 
     public bool IsPossessedState => isPossessed;
-    
 
     protected virtual void Update()
     {
@@ -38,19 +37,18 @@ public abstract class BasePossible : MonoBehaviour
         PossessionStateManager.Instance.StartUnpossessTransition();
     }
 
+    //public void OnQTESuccess()
+    //{
+    //    Debug.Log("QTE 성공 - 빙의 완료");
 
-    public void OnQTESuccess()
-    {
-        Debug.Log("QTE 성공 - 빙의 완료");
+    //    isPossessed = true;
+    //    PossessionStateManager.Instance.StartPossessionTransition();
+    //}
 
-        isPossessed = true;
-        PossessionStateManager.Instance.StartPossessionTransition();
-    }
-
-    public void OnQTEFailure()
-    {
-        Debug.Log("QTE 실패 - 빙의 취소");
-        isPossessed = false;
-        SoulEnergySystem.Instance.Consume(1);
-    }
+    //public void OnQTEFailure()
+    //{
+    //    Debug.Log("QTE 실패 - 빙의 취소");
+    //    isPossessed = false;
+    //    SoulEnergySystem.Instance.Consume(1);
+    //}
 }

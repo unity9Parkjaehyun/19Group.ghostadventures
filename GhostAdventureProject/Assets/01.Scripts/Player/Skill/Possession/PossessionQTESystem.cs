@@ -5,14 +5,11 @@ using UnityEngine;
 public class PossessionQTESystem : Singleton<PossessionQTESystem>
 {
     [SerializeField] private QTEUI QTEUI;
-    private PlayerController Player; // 게임매니저 연결 후 수정
-    private BasePossible currentTarget;
     public bool isRunning { get; private set; } = false;
 
     private void Start()
     {
         QTEUI.gameObject.SetActive(false);
-        Player = FindObjectOfType<PlayerController>(); // 게임매니저 연결 후 수정
     }
     public void StartQTE()
     {
@@ -32,12 +29,29 @@ public class PossessionQTESystem : Singleton<PossessionQTESystem>
         if (success)
         {
             Debug.Log("QTE succeeded");
-            Player.currentTarget?.OnQTESuccess();
+            //Player.currentTarget?.
+                OnQTESuccess();
         }
         else
         {
             Debug.Log("QTE failed");
-            Player.currentTarget?.OnQTEFailure();
+            //Player.currentTarget?.
+                OnQTEFailure();
         }
+    }
+
+    public void OnQTESuccess()
+    {
+        Debug.Log("QTE 성공 - 빙의 완료");
+
+        PossessionSystem.Instance.CurrentTarget.isPossessed = true;
+        PossessionStateManager.Instance.StartPossessionTransition();
+    }
+
+    public void OnQTEFailure()
+    {
+        Debug.Log("QTE 실패 - 빙의 취소");
+        PossessionSystem.Instance.CurrentTarget.isPossessed = false;
+        SoulEnergySystem.Instance.Consume(1);
     }
 }

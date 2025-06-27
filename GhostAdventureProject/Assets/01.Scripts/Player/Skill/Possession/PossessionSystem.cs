@@ -6,15 +6,11 @@ public class PossessionSystem : Singleton<PossessionSystem>
 {
     private PlayerController Player => GameManager.Instance.PlayerController;
 
+    // 디버깅용
     [SerializeField] private BasePossible currentTarget;
     public BasePossible CurrentTarget => currentTarget;
 
     public bool canMove { get; set; } = true;
-
-    private void Start()
-    {
-        currentTarget = Player.currentTarget;
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
