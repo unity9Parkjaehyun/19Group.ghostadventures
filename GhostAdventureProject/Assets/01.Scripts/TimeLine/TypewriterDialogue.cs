@@ -10,7 +10,7 @@ public class TypewriterDialogue : MonoBehaviour
     public static TypewriterDialogue Instance { get; private set; }
 
     public TimelineControl timelineControl; //타임라인 컨트롤
-    public GameObject dialoguePanel; //대화창 패널
+    //public GameObject dialoguePanel; //대화창 패널
     public TextMeshProUGUI dialogueText; //대화 텍스트 컴포넌트
     public float typingSpeed = 0.05f; // 타이핑 속도 
 
@@ -55,7 +55,8 @@ public class TypewriterDialogue : MonoBehaviour
     void Start()
     {
         dialogueText.text = "";
-        dialoguePanel.SetActive(false);
+        //dialoguePanel.SetActive(false);
+        //dialogueText.gameObject.SetActive(true); // 대화 텍스트를 비활성화
     }
 
     void Update()
@@ -89,7 +90,7 @@ public class TypewriterDialogue : MonoBehaviour
 
         this.dialogues = allDialogueSets[dialogueSetIndex].dialogues; // 해당 인덱스의 대사 묶음을 현재 dialogues로 설정
         index = 0;
-        dialoguePanel.SetActive(true);
+        dialogueText.gameObject.SetActive(true);
         StartCoroutine(TypeLine());
     }
 
@@ -107,7 +108,7 @@ public class TypewriterDialogue : MonoBehaviour
 
         this.dialogues = allDialogueSets[dialogueSetIndex].dialogues; // 해당 인덱스의 대사 묶음을 현재 dialogues로 설정
         index = 0;
-        dialoguePanel.SetActive(true);
+        dialogueText.gameObject.SetActive(true);
         StartCoroutine(TypeLineShake());
     }
 
@@ -120,7 +121,7 @@ public class TypewriterDialogue : MonoBehaviour
         if (dialogues == null || dialogues.Length <= index)
         {
             Debug.LogWarning("대사 배열이 비어있거나 인덱스가 범위를 벗어났습니다. 대화 종료.");
-            dialoguePanel.SetActive(false);
+            dialogueText.gameObject.SetActive(false);
             isTyping = false;
             skipTyping = false;
             if (timelineControl != null) timelineControl.ResumeTimeline();
@@ -151,7 +152,7 @@ public class TypewriterDialogue : MonoBehaviour
         if (dialogues == null || dialogues.Length <= index)
         {
             Debug.LogWarning("대사 배열이 비어있거나 인덱스가 범위를 벗어났습니다. 대화 종료.");
-            dialoguePanel.SetActive(false);
+            dialogueText.gameObject.SetActive(false);
             isTyping = false;
             skipTyping = false;
             if (timelineControl != null) timelineControl.ResumeTimeline();
@@ -196,7 +197,7 @@ public class TypewriterDialogue : MonoBehaviour
         else
         {
             dialogueText.text = "";
-            dialoguePanel.SetActive(false);
+            dialogueText.gameObject.SetActive(false);
             if (timelineControl != null)
             {
                 timelineControl.ResumeTimeline();
@@ -210,7 +211,7 @@ public class TypewriterDialogue : MonoBehaviour
 
     void ShakeDialogue(float duration = 0.2f, float strength = 8f) //텍스트 흔들기 메서드
     {
-        dialoguePanel.transform.DOShakePosition(
+        dialogueText.gameObject.transform.DOShakePosition(
             duration,
             strength,
             vibrato: 150,
