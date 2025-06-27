@@ -49,3 +49,6 @@ TagManager:
   - name: New Layer 2
     uniqueID: 1467204809
     locked: 0
+  - name: CutScene
+    uniqueID: 3451766033
+    locked: 0

@@ -16,8 +16,10 @@ public class CameraZoom : MonoBehaviour
 
     void Start()
     {
+
+        target = GameObject.FindGameObjectWithTag("Player").transform; // 플레이어 태그로 타겟 설정
         originalSize = virtualCam.m_Lens.OrthographicSize;
-        originalCamPosition = virtualCam.transform.position; // 🔸 카메라 초기 위치 저장
+        originalCamPosition = virtualCam.transform.position; // 카메라 초기 위치 저장
         virtualCam.Follow = null;
     }
 

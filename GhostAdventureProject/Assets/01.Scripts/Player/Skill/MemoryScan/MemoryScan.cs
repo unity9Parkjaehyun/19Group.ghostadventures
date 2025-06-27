@@ -29,7 +29,7 @@ public class MemoryScan : MonoBehaviour
         mainCamera = Camera.main;
         // 초기 UI 상태 설정
         scanPanel = UIManager.Instance.scanUI;
-        scanCircleUI = UIManager.Instance.scanUI.GetComponentInChildren<Image>();
+        scanCircleUI = UIManager.Instance.scanUI.transform.Find("CircleUI")?.GetComponent<Image>();
         scanCircleUI?.gameObject.SetActive(false);
 
     }
@@ -55,7 +55,7 @@ public class MemoryScan : MonoBehaviour
         if (scanCircleUI != null && scanCircleUI.gameObject.activeInHierarchy)
         {
             // 플레이어의 월드 위치를 스크린 위치로 변환하여 UI 위치를 갱신
-        
+
             scanCircleUI.transform.position = mainCamera.WorldToScreenPoint(playerTransform.position) + new Vector3(-40, 50, 0);
         }
     }
@@ -63,7 +63,7 @@ public class MemoryScan : MonoBehaviour
     private void TryStartScan()
     {
         // 영혼 에너지가 있는지 확인
-        if (SoulEnergySystem.Instance.currentEnergy <= 0 )
+        if (SoulEnergySystem.Instance.currentEnergy <= 0)
         {
             Debug.Log("영혼 에너지가 부족하여 스캔을 시작할 수 없습니다.");
             // 여기에 부족 알림 UI나 사운드를 재생하는 로직
@@ -78,19 +78,26 @@ public class MemoryScan : MonoBehaviour
         if (!currentMemoryFragment.isScanned)
         {
 
-        isScanning = true;
-        scanTime = 0f;
+            isScanning = true;
+            scanTime = 0f;
 
-        scanPanel?.SetActive(true);
-        if (scanCircleUI != null)
-        {
-            scanCircleUI.gameObject.SetActive(true);
-            scanCircleUI.fillAmount = 0f;
-        }
+            scanPanel?.SetActive(true);
+            if (scanCircleUI != null)
+            {
+                scanCircleUI.gameObject.SetActive(true);
+                scanCircleUI.fillAmount = 0f;
+            }
 
-        Time.timeScale = 0.3f; // 슬로우 모션 시작
-        SoulEnergySystem.Instance.Consume(1); // 에너지 소모
-        Debug.Log("스캔 시작");
+            else
+            {
+
+                Debug.LogWarning("Scan Circle UI가 설정되지 않았습니다. UI를 확인해주세요.");
+                return;
+            }
+
+            Time.timeScale = 0.3f; // 슬로우 모션 시작
+            SoulEnergySystem.Instance.Consume(1); // 에너지 소모
+            Debug.Log("스캔 시작");
 
 
         }
@@ -140,16 +147,16 @@ public class MemoryScan : MonoBehaviour
         }
 
 
-        currentScanObject.GetComponentInChildren<SpriteRenderer>().color = new Color(155/255f,155/255f,155/255f); // 스캔 완료 후 색상 변경
-        //// 스캔 대상 초기화
-        //currentScanObject = null;
-        //currentMemoryFragment = null;
+        currentScanObject.GetComponentInChildren<SpriteRenderer>().color = new Color(155 / 255f, 155 / 255f, 155 / 255f); // 스캔 완료 후 색상 변경
+                                                                                                                          //// 스캔 대상 초기화
+                                                                                                                          //currentScanObject = null;
+                                                                                                                          //currentMemoryFragment = null;
 
         // 여기에 스캔 완료 후 처리 로직 추가 (예: UI 업데이트, 사운드 재생 등)
-        
+
         //SceneManager.LoadScene($"{currentMemoryFragment.data.CutSceneName}", LoadSceneMode.Additive); // 스캔 완료 후 씬 전환
         //Time.timeScale = 0f; // 시간 흐름을 원래대로 복구
-        
+
     }
 
     private void CancelScan(string reason)
@@ -184,7 +191,7 @@ public class MemoryScan : MonoBehaviour
                 CancelScan("범위를 이탈하여 스캔이 중단되었습니다.");
             }
 
-            
+
             currentScanObject = null;
             currentMemoryFragment = null;
         }
