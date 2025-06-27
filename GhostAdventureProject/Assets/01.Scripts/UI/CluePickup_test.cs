@@ -12,9 +12,9 @@ public class CluePickup_test : MonoBehaviour
 
         if (other.CompareTag("Player"))  // 키입력 조건 추가예정
         {
-            Inventory.Instance.AddClue(clueData);
+            UIManager.Instance.Inventory_PlayerUI.AddClue(clueData);
             Destroy(gameObject); // 단서 오브젝트 제거
-            Inventory.Instance.RefreshUI(); // UI에 반영
+            UIManager.Instance.Inventory_PlayerUI.RefreshUI(); // UI에 반영
         }
     }
 }

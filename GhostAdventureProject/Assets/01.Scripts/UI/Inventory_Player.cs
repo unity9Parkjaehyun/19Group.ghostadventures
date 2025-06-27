@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Inventory : Singleton<Inventory>
+public class Inventory_Player : MonoBehaviour
 {
     // 인벤토리 = 단서수집함
     // <완료>
