@@ -14,7 +14,7 @@ public class PossessionStateManager : Singleton<PossessionStateManager>
         => GameManager.Instance.PlayerController.transform;
     private GameObject Player
         => GameManager.Instance.Player;
-    private BasePossible possessedTarget;
+    private BasePossessable possessedTarget;
 
     public bool IsPossessing() => currentState == State.Possessing;
 

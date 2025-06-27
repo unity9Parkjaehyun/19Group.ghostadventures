@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ch1_CelebrityBox : BasePossible
+public class Ch1_CelebrityBox : BasePossessable
 {
     
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalPossible : BasePossible
+public class AnimalPossessable : BasePossessable
 {
     [SerializeField] private float moveSpeed = 3f;
     protected override void Update()
