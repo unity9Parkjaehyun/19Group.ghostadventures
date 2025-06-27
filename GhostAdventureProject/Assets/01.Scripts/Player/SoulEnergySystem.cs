@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SoulEnergySystem : Singleton<SoulEnergySystem>
 {
-    public int maxEnergy = 10;
+    public int maxEnergy;
     public int currentEnergy;
     
     public float baseRestoreInterval; // n초마다 자연 회복
