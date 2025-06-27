@@ -39,6 +39,6 @@ public class Ch1_CelebrityBox : BasePossible
         if(noteObject != null)
             noteObject.SetActive(true);
         
-        Unpossess();
+        // Unpossess();
     }
 }
