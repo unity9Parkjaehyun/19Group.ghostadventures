@@ -8,6 +8,7 @@ public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
 
     private void Update()
     {
+        Debug.Log($"현재 플레이어 근처 오브젝트 수: {nearbyInteractables.Count}");
         if (nearbyInteractables.Count == 0)
         {
             UpdateClosest(null);
@@ -54,7 +55,7 @@ public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
     // 플레이어 근처에 있는 오브젝트들
     public void AddInteractable(GameObject obj)
     {
-        if (obj == null || !obj.TryGetComponent<BaseInteractable>(out _))
+        if (obj == null)
             return;
 
         nearbyInteractables.Add(obj);
@@ -64,6 +65,12 @@ public class PlayerInteractSystem : Singleton<PlayerInteractSystem>
     public void RemoveInteractable(GameObject obj)
     {
         if (nearbyInteractables.Contains(obj))
+        {
             nearbyInteractables.Remove(obj);
+            if (currentClosest == obj)
+            {
+                UpdateClosest(null);
+            }
+        }
     }
 }

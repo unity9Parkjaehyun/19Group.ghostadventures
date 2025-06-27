@@ -15,4 +15,13 @@ public class BaseInteractable : MonoBehaviour
         if (interactionInfo != null)
             interactionInfo.SetActive(pop);
     }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            SetInteractionPopup(false);
+            PlayerInteractSystem.Instance.RemoveInteractable(gameObject);
+        }
+    }
 }
