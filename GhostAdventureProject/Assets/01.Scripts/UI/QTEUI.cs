@@ -27,8 +27,7 @@ public class QTEUI : MonoBehaviour
     void Update()
     {
         if (!isRunning) return;
-
-        currentAngle += rotateSpeed * Time.deltaTime;
+        currentAngle += rotateSpeed * Time.unscaledDeltaTime;
 
         if (currentAngle >= 180f)
         {

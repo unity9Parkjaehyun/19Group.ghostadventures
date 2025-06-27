@@ -10,7 +10,7 @@ public class AnimalPossessable : BasePossessable
     {
         base.Update();
 
-        if (!isPossessed)
+        if (!isPossessed || !PossessionSystem.Instance.canMove)
             return;
 
         Move();

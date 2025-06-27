@@ -8,7 +8,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
     private PlayerController Player;
     private BasePossessable currentTarget;
 
-    public bool isLocked { get; private set; } = false;
+    public bool canMove { get; set; } = false;
 
     private void Start()
     {
@@ -16,6 +16,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
         Player = FindObjectOfType<PlayerController>();
         currentTarget = Player.currentTarget;
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log($"트리거 충돌: {other.name}");
@@ -34,7 +35,7 @@ public class PossessionSystem : Singleton<PossessionSystem>
             ClearInteractionTarget(possessionObject);
         }
     }
-    public bool TryPossess(BasePossessable target)
+    public bool TryPossess()
     {
         if (!SoulEnergySystem.Instance.HasEnoughEnergy(3))
         {
@@ -42,15 +43,20 @@ public class PossessionSystem : Singleton<PossessionSystem>
             return false;
         }
         SoulEnergySystem.Instance.Consume(3);
-        target.RequestPossession();
+        RequestPossession();
         return true;
+    }
+    public void RequestPossession()
+    {
+        Debug.Log($"{name} 빙의 시도 - QTE 호출");
+        PossessionQTESystem.Instance.StartQTE();
     }
 
     public void SetInteractTarget(BasePossessable target)
     {
         currentTarget = target;
         if (Player != null)
-            Player.currentTarget = target;
+            Player.currentTarget = currentTarget;
     }
 
     public void ClearInteractionTarget(BasePossessable target)
@@ -65,31 +71,30 @@ public class PossessionSystem : Singleton<PossessionSystem>
 
     public void PlayPossessionInAnimation() // 빙의 시작 애니메이션
     {
-        isLocked = true;
+        Debug.Log("빙의 시작 애니메이션 재생");
+        canMove = false;
         Player.animator.SetTrigger("PossessIn");
     }
 
-    public void StartPossessionOutSequence() // 빙의 해제 애니메이션 코루틴으로
+    public void StartPossessionOutSequence() // 빙의 해제 애니메이션
     {
+        canMove = false;
         StartCoroutine(DelayedPossessionOutPlay());
     }
 
     private IEnumerator DelayedPossessionOutPlay()
     {
         yield return null; // 한 프레임 딜레이
-        isLocked = true;
         Player.animator.Play("Player_PossessionOut");
     }
 
     public void OnPossessionInAnimationComplete() // 빙의 시작 애니메이션 후 이벤트
     {
-        isLocked = false;
         PossessionStateManager.Instance.PossessionInAnimationComplete();
     }
 
     public void OnPossessionOutAnimationComplete() // 빙의 해제 애니메이션 후 이벤트
     {
-        isLocked = false;
         PossessionStateManager.Instance.PossessionOutAnimationComplete();
     }
 }

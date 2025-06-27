@@ -37,7 +37,7 @@ public class MemoryScan : MonoBehaviour
     void Update()
     {
         // 스캔 가능한 상태가 아니거나, 스캔 중이 아닐 때 입력을 받음
-        if (isNearMemory && !isScanning && Input.GetKeyDown(KeyCode.X))
+        if (isNearMemory && !isScanning && Input.GetKeyDown(KeyCode.E))
         {
             TryStartScan();
         }

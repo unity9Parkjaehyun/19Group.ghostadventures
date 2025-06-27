@@ -17,13 +17,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (PossessionSystem.Instance.isLocked || PossessionQTESystem.Instance.isRunning)
+        if (PossessionSystem.Instance.canMove || PossessionQTESystem.Instance.isRunning)
             return;
 
         HandleMovement();
 
         if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
-            currentTarget.OnTryPossess();
+            PossessionSystem.Instance.TryPossess();
     }
 
     private void HandleMovement() // 기본 이동 처리

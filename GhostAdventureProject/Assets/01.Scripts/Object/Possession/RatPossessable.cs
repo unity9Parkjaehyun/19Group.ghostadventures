@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class RatPossessable : AnimalPossessable
 {
+    protected override void Update()
+    {
+        base.Update();
+
+        // if(상호작용 인풋)
+        //     OnActivate();
+
+    }
+
     public void OnActivate()
     {
         // 고유 기능 로직
