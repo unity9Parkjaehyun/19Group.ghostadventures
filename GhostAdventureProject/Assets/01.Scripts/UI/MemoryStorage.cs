@@ -5,31 +5,76 @@ using UnityEngine.UI;
 
 public class MemoryStorage : MonoBehaviour
 {
-    [SerializeField] private GameObject memeoryPanel; // 기억 저장소 UI
-    [SerializeField] private Button memoryStorageButton; // 기억 저장소 버튼
-    MemoryData memoryData;
+    public static MemoryStorage Instance;
 
+    [SerializeField] private GameObject memoryStorage;
+    [SerializeField] private Transform mapRoot;
+    [SerializeField] private GameObject memoryNodePrefab;
+    [SerializeField] private GameObject linePrefab;
 
-    // 기억저장소 버튼을 눌렀을 때
-    // 기억 저장소 Panel이 SetActive(true)
-    // 기억 저장소에는 기억(MemoryData)이 나열되어있음 - MemoryData의 ID와 BG가 표시됨
-    // 기억 클릭시 BG가 확대됨(배경은 BG에 집중할 수 있도록 어두워짐)
-    // x 클릭시 다시 기억이 나열되어 있는 곳으로 돌아옴.
-    // 또 x 클릭시 Panel SetActive(false)
-
-    // 부정/긍정/가짜 기억 구분은 색으로 표시(미정)
-    // 수집 현황 표시 (ex 1/30)
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        Instance = this;
+        memoryStorage.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RefreshUI(List<MemoryData> collectedMemories)
     {
+        foreach (Transform child in mapRoot)
+            Destroy(child.gameObject);
+
+        // 나이순으로 정렬
+        // collectedMemories.Sort((a, b) => a.age.CompareTo(b.age));
+
+        Vector2 startPos = new Vector2(0, 0);
+        Vector2 offset = new Vector2(300, 0); // 노드 간 거리
+        Vector2 curPos = startPos;
+
+        GameObject lastNode = null;
+
+        foreach (var memory in collectedMemories)
+        {
+            var node = Instantiate(memoryNodePrefab, mapRoot);
+            node.GetComponent<RectTransform>().anchoredPosition = curPos;
+
+            var memoryNode = node.GetComponent<MemoryNode>();
+            memoryNode.Init(memory);
+
+            // 이전 노드와 선 연결
+            if (lastNode != null)
+            {
+                var line = Instantiate(linePrefab, mapRoot).GetComponent<Image>();
+                // 여기서 라인 그리기 (Image로 선 그리거나 LineRenderer)
+                DrawLineBetween(lastNode.GetComponent<RectTransform>(), node.GetComponent<RectTransform>(), line);
+            }
+
+            lastNode = node;
+            curPos += offset;
+        }
+    }
+
+    private void DrawLineBetween(RectTransform from, RectTransform to, Image line)
+    {
+        Vector2 dir = to.anchoredPosition - from.anchoredPosition;
+        float distance = dir.magnitude;
+
+        line.rectTransform.sizeDelta = new Vector2(distance, 5);
+        line.rectTransform.anchoredPosition = from.anchoredPosition + dir / 2f;
+        line.rectTransform.rotation = Quaternion.FromToRotation(Vector3.right, dir);
+    }
+
+        private bool isOpen = false;
         
+
+    public void TogglePanel()
+    {
+        // isOpen = !isOpen;
+        memoryStorage.SetActive(true);
+    }
+
+    public void ClosePanel()
+    {
+        isOpen = false;
+        memoryStorage.SetActive(false);
     }
 }
