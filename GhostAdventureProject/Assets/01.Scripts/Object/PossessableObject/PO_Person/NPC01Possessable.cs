@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPC01Possessable : AnimalPossessable
+public class NPC01Possessable : MoveBasePossessable
 {
     protected override void Update()
     {
